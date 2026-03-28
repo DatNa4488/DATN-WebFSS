@@ -1,0 +1,26 @@
+{
+  "name": "fss-frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Fashion Shopping Sense - AI-powered fashion e-commerce platform",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.8.4",
+    "framer-motion": "^12.6.3",
+    "lucide-react": "^0.487.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.4.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.1.3",
+    "vite": "^6.3.1"
+  }
+}

@@ -28,7 +28,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/40 backdrop-blur-md"
             onClick={onClose}
           />
           {/* Modal */}
@@ -37,20 +37,23 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            className={`relative w-full ${sizeClass} bg-white rounded-2xl shadow-2xl overflow-hidden`}
+            className={`relative w-full ${sizeClass} bg-white rounded-2xl shadow-elevation overflow-hidden`}
           >
             {title && (
-              <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-                <h2 className="font-semibold font-display text-foreground">{title}</h2>
-                <button
+              <div className="flex items-center justify-between px-6 py-5 border-b border-border bg-surface-secondary">
+                <h2 className="font-bold font-display text-lg text-foreground">{title}</h2>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={onClose}
-                  className="p-1.5 rounded-lg hover:bg-[#F5F5F5] text-muted transition-colors"
+                  className="p-2 rounded-lg hover:bg-white text-muted-foreground transition-colors"
+                  aria-label="Close modal"
                 >
-                  <X size={18} />
-                </button>
+                  <X size={20} strokeWidth={2.5} />
+                </motion.button>
               </div>
             )}
-            <div className="p-6">{children}</div>
+            <div className="p-6 max-h-[80vh] overflow-y-auto">{children}</div>
           </motion.div>
         </div>
       )}

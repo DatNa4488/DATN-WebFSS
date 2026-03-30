@@ -40,12 +40,12 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex relative bg-white">
       {/* Back to Home Button - Minimalist */}
-      <Link 
-        to="/" 
+      <Link
+        to="/"
         className="absolute top-10 left-10 z-50 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-primary hover:opacity-100 transition-all group lg:text-white"
       >
         <div className="w-8 h-8 rounded-full border border-slate-100 lg:border-white/20 flex items-center justify-center group-hover:bg-slate-50 lg:group-hover:bg-white/10 transition-colors">
-           <span className="text-lg">←</span>
+          <span className="text-lg">←</span>
         </div>
         QUAY LẠI
       </Link>
@@ -70,7 +70,7 @@ export default function LoginPage() {
 
         {/* Logo + Content */}
         <div className="relative z-10 text-center flex flex-col items-center">
-          <div className="w-28 h-28 bg-white rounded-[2rem] flex items-center justify-center mb-8 shadow-2xl overflow-hidden p-4">
+          <div className="w-40 h-40 flex items-center justify-center mb-6 transition-all duration-500">
             <img src="/logo.png" alt="FSS" className="w-full h-full object-contain hover:scale-110 transition-transform duration-500" />
           </div>
           <h1 className="text-5xl font-bold font-display mb-4 leading-tight">Fashion<br />Shopping Sense</h1>
@@ -89,15 +89,15 @@ export default function LoginPage() {
           className="w-full max-w-sm"
         >
           <div className="mb-12">
-             <h2 className="text-[24px] text-headline leading-tight mb-2 uppercase">ĐĂNG NHẬP</h2>
-             <p className="text-[13px] text-muted-foreground font-medium">Chào mừng bạn trở lại với gia đình FSS.</p>
+            <h2 className="text-[24px] text-headline leading-tight mb-2 uppercase">ĐĂNG NHẬP</h2>
+            <p className="text-[13px] text-muted-foreground font-medium">Chào mừng bạn trở lại với gia đình FSS.</p>
           </div>
 
           <form id="login-form" onSubmit={handleSubmit} className="space-y-10">
             {/* Email */}
             <div className="group">
-              <label 
-                htmlFor="login-email" 
+              <label
+                htmlFor="login-email"
                 className="text-label opacity-60 group-focus-within:opacity-100 transition-opacity"
               >
                 EMAIL
@@ -118,8 +118,8 @@ export default function LoginPage() {
             {/* Password */}
             <div className="group">
               <div className="flex items-center justify-between">
-                <label 
-                  htmlFor="login-password" 
+                <label
+                  htmlFor="login-password"
                   className="text-label opacity-60 group-focus-within:opacity-100 transition-opacity"
                 >
                   MẬT KHẨU
@@ -152,32 +152,27 @@ export default function LoginPage() {
               <p className="text-[11px] font-bold text-rose-500 bg-rose-50 p-3 rounded-sm border-l-2 border-rose-500">{authError}</p>
             )}
 
-            <motion.button
-              whileTap={{ scale: 0.98 }}
-              id="login-submit-btn"
-              type="submit"
-              disabled={loading}
-              className="w-full py-5 bg-primary text-white text-[12px] font-black uppercase tracking-[0.3em] rounded-sm hover:bg-secondary transition-all shadow-xl shadow-primary/10 flex items-center justify-center gap-3 mt-4"
-            >
-              {loading ? (
-                <><span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> ĐANG XỬ LÝ...</>
-              ) : 'ĐĂNG NHẬP'}
-            </motion.button>
-          </form>
+            <div className="flex gap-4 mt-10">
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                id="login-submit-btn"
+                type="submit"
+                disabled={loading}
+                className="flex-[1.2] py-4.5 bg-primary text-white text-[11px] font-black uppercase tracking-[0.2em] rounded-none hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3"
+              >
+                {loading ? (
+                  <><span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> ĐANG XỬ LÝ...</>
+                ) : 'ĐĂNG NHẬP'}
+              </motion.button>
 
-          {/* Demo Section - Clean & Minimalist */}
-          <div className="mt-12 pt-8 border-t border-slate-50">
-            <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest text-center mb-6">TRUY CẬP NHANH</p>
-            <div className="flex gap-4">
-               <button onClick={() => fillDemo('customer')} className="flex-1 py-3 text-[11px] font-bold text-primary border border-slate-100 rounded-sm hover:bg-slate-50 transition-all ">KHÁCH HÀNG</button>
-               <button onClick={() => fillDemo('admin')} className="flex-1 py-3 text-[11px] font-bold text-white bg-slate-900 rounded-sm hover:bg-black transition-all">QUẢN TRỊ VIÊN</button>
+              <Link
+                to="/register"
+                className="flex-1 py-4.5 border border-primary/20 text-primary text-[11px] font-black uppercase tracking-[0.2em] rounded-none hover:border-primary transition-all flex items-center justify-center"
+              >
+                ĐĂNG KÝ
+              </Link>
             </div>
-          </div>
-
-          <p className="mt-12 text-center text-[12px] font-medium text-muted-foreground tracking-tight">
-            Chưa có tài khoản?{' '}
-            <Link to="/register" className="text-primary font-black hover:underline underline-offset-4 decoration-1">Đăng ký ngay</Link>
-          </p>
+          </form>
         </motion.div>
       </div>
     </div>

@@ -1,15 +1,52 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronRight, MessageCircle, Zap, Shield, Truck } from 'lucide-react';
 import { products, categories, formatPrice } from '../../data/mockData';
 import ProductCard from '../../components/ui/ProductCard';
 
 /* Khung chung với header/footer — luôn có lề hai bên */
 const containerClass = 'layout-page';
 
+const faqs = [
+  {
+    id: 1,
+    question: 'Phí vận chuyển được tính như thế nào?',
+    answer: 'Chúng tôi cung cấp miễn phí vận chuyển cho tất cả đơn hàng. Thời gian giao hàng thường là 2-3 ngày làm việc tại khu vực thành phố.'
+  },
+  {
+    id: 2,
+    question: 'Tôi có thể đổi trả hàng trong bao lâu?',
+    answer: 'Bạn có thể đổi trả hàng trong vòng 30 ngày kể từ ngày nhận đơn hàng. Sản phẩm phải còn nguyên bao bì, chưa qua sử dụng.'
+  },
+  {
+    id: 3,
+    question: 'Làm sao để biết size đó vừa với tôi?',
+    answer: 'Mỗi sản phẩm đều có bảng size chi tiết. Bạn cũng có thể tham khảo phần review của khách hàng khác để biết độ vừa vặn.'
+  },
+];
+
+const features = [
+  {
+    icon: Zap,
+    title: 'Tìm kiếm nhanh',
+    description: 'Công nghệ AI Visual Search giúp tìm sản phẩm tương đồng trong vài giây'
+  },
+  {
+    icon: Truck,
+    title: 'Giao hàng nhanh',
+    description: 'Giao hàng toàn quốc, miễn phí vận chuyển cho đơn hàng từ 500.000đ'
+  },
+  {
+    icon: Shield,
+    title: 'Thanh toán an toàn',
+    description: 'Bảo mật thông tin khách hàng, giao dịch an toàn và tin cậy'
+  },
+];
+
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [expandedFaq, setExpandedFaq] = useState(0);
   const heroProduct = products[0];
 
   const filteredProducts = activeCategory === 'all'
@@ -30,68 +67,81 @@ export default function HomePage() {
   };
 
   return (
-    <div className="page-enter bg-surface-secondary min-h-screen pb-20">
+    <div className="page-enter bg-white min-h-screen pb-20">
 
-      {/* ===== HERO — gọn, contained, glass card ===== */}
-      <section className="relative pt-12 pb-20 lg:pt-16 lg:pb-24 overflow-hidden">
+      {/* ===== HERO SECTION ===== */}
+      <section className="relative pt-20 pb-28 lg:pt-24 lg:pb-36 overflow-hidden bg-gradient-to-br from-primary-50 via-white to-surface-secondary">
+        {/* Decorative Elements */}
+        <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/3 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
+        
         <div className={containerClass}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="z-10 w-full min-w-0 max-w-xl lg:max-w-none"
+              transition={{ duration: 0.6 }}
+              className="w-full"
             >
-              <div className="flex flex-col items-start mb-4">
-                 <span className="text-label mb-2">FASHION SHOPPING SENSE</span>
-                 <h1 className="text-3xl sm:text-4xl lg:text-[2.35rem] xl:text-[2.65rem] text-headline">
-                   <span className="block">SỰ HIỆN ĐẠI.</span>
-                   <span className="block text-primary">TINH TẾ.</span>
-                 </h1>
+              <div className="flex flex-col items-start mb-6">
+                <span className="text-label mb-4">FASHION SHOPPING SENSE</span>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-headline leading-[1.1]">
+                  <span className="block">Sự Hiện Đại.</span>
+                  <span className="block bg-gradient-to-r from-primary to-primary-700 bg-clip-text text-transparent">
+                    Tinh Tế.
+                  </span>
+                </h1>
               </div>
-              <p className="text-sm sm:text-[15px] text-muted mt-4 max-w-lg leading-relaxed">
+              <p className="text-sm sm:text-base text-muted-foreground mt-6 max-w-xl leading-relaxed">
                 Khám phá bộ sưu tập mang phong cách tối giản, tập trung vào chất liệu cao cấp và những đường cắt may hoàn hảo.
               </p>
-              <div className="mt-7">
+              <motion.div className="mt-10">
                 <Link
                   to="/products"
-                  className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-white text-[13px] font-bold rounded-full shadow-lg shadow-primary/20 hover:bg-secondary transition-all"
+                  className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-white font-bold rounded-none shadow-soft hover:shadow-elevation hover:bg-primary-700 transition-all active:scale-95"
                 >
-                  Khám phá ngay <ArrowRight size={18} strokeWidth={2.5} />
+                  Khám phá ngay <ArrowRight size={20} strokeWidth={2} />
                 </Link>
-              </div>
+              </motion.div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.05 }}
-              className="relative w-full min-w-0"
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="relative w-full"
             >
-              <div className="relative w-full rounded-[1.35rem] overflow-hidden shadow-xl shadow-slate-900/15 ring-1 ring-black/[0.06]">
+              <div className="group relative w-full rounded-[2rem] overflow-hidden shadow-elevation ring-1 ring-black/5">
                 <img
                   src={heroProduct.images[0]}
                   alt={heroProduct.name}
-                  className="w-full h-[min(400px,50vh)] sm:h-[420px] lg:h-[440px] object-cover object-top"
+                  className="w-full h-[min(400px,50vh)] sm:h-[480px] lg:h-[520px] object-cover object-top"
                 />
-                <Link
-                  to={`/products/${heroProduct.id}`}
-                  className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/95 backdrop-blur-sm border border-white/70 shadow-md flex items-center justify-center text-primary hover:bg-white transition-colors"
-                  aria-label="Xem sản phẩm"
+                {/* Overlay Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => window.location.href = `/products/${heroProduct.id}`}
+                  className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
+                  aria-label="View product"
                 >
-                  <ChevronRight size={22} strokeWidth={2} />
-                </Link>
-                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 bg-slate-900/60 backdrop-blur-md border-t border-white/10">
-                  <span className="inline-block text-[10px] font-black uppercase tracking-[0.2em] mb-2 px-3 py-1 rounded-full bg-white text-primary shadow-sm">
-                    Best Seller
+                  <ChevronRight size={24} strokeWidth={2.5} />
+                </motion.button>
+                
+                {/* Bottom Card */}
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 bg-gradient-to-t from-black via-black/80 to-transparent backdrop-blur-sm border-t border-white/10">
+                  <span className="badge badge-primary mb-3">
+                    ⭐ Best Seller
                   </span>
-                  <h3 className="font-display font-bold text-white text-base sm:text-lg leading-snug">
+                  <h3 className="font-display font-bold text-white text-lg sm:text-xl leading-snug">
                     {heroProduct.name}
                   </h3>
-                  <p className="text-white font-bold text-[15px] mt-1">{formatPrice(heroProduct.price)}</p>
+                  <p className="text-white/90 font-bold text-lg mt-2">{formatPrice(heroProduct.price)}</p>
                   <Link
                     to={`/products/${heroProduct.id}`}
-                    className="mt-3 flex w-full items-center justify-center py-2.5 rounded-full bg-white text-foreground text-xs font-bold uppercase tracking-wider hover:bg-slate-100 transition-colors shadow-sm"
+                    className="mt-4 flex w-full items-center justify-center py-3 rounded-xl bg-white text-primary text-xs font-bold uppercase tracking-wider hover:bg-white/90 transition-all shadow-lg"
                   >
                     Xem chi tiết
                   </Link>
@@ -102,40 +152,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== CATEGORIES — không cho bg tràn full viewport ===== */}
-      <section className="py-20 lg:py-28">
+      {/* ===== CATEGORIES SECTION ===== */}
+      <section className="py-24 lg:py-32 bg-gradient-to-b from-white via-surface-secondary to-white">
         <div className={containerClass}>
-          <div className="rounded-2xl border border-border bg-white px-4 py-6 sm:px-6 sm:py-7 shadow-sm">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <h2 className="text-lg md:text-xl font-bold font-display text-foreground tracking-tight">Sản phẩm nổi bật</h2>
-            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide w-full md:w-auto">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`px-5 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                    activeCategory === cat.id
-                      ? 'bg-primary text-white shadow-sm shadow-primary/20'
-                      : 'bg-slate-100 text-muted border border-transparent hover:border-primary/40'
-                  }`}
-                >
-                  {cat.name}
-                </button>
-              ))}
+          <div className="card-premium p-6 sm:p-8 mb-10 rounded-none">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-bold font-display text-foreground mb-1">Sản phẩm nổi bật</h2>
+              <p className="text-sm text-muted-foreground">Bộ sưu tập được chọn lọc kỹ càng cho bạn</p>
             </div>
           </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ===== PRODUCT GRID ===== */}
-      <section className="py-20 lg:py-32">
-        <div className={containerClass}>
+          {/* PRODUCT GRID */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="show"
-            className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
           >
             {filteredProducts.map((product) => (
               <motion.div key={product.id} variants={itemVariants}>
@@ -144,18 +176,53 @@ export default function HomePage() {
             ))}
           </motion.div>
 
-          <div className="text-center mt-10">
+          {/* CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="text-center mt-32 lg:mt-48 mb-20 lg:mb-32"
+          >
             <Link
               to="/products"
-              className="inline-flex items-center gap-2 px-8 py-3 border-2 border-primary text-primary text-sm font-bold rounded-full hover:bg-primary hover:text-white transition-all group"
+              className="inline-flex items-center gap-4 px-14 py-6 bg-primary text-white font-bold text-sm uppercase tracking-wider rounded-none hover:bg-primary-700 hover:shadow-elevation transition-all group shadow-soft"
             >
-              Xem tất cả sản phẩm <ArrowRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
+              Xem tất cả sản phẩm
+              <ArrowRight size={20} strokeWidth={2.5} className="group-hover:translate-x-2 transition-transform" />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-
+      {/* ===== FEATURES SECTION ===== */}
+      <section className="py-20 lg:py-24 bg-white">
+        <div className={containerClass}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            {features.map((feature, idx) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  whileHover={{ y: -4 }}
+                  className="card-elevated p-8 rounded-none text-center"
+                >
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-none bg-primary/10 text-primary mb-6">
+                    <Icon size={28} strokeWidth={2} />
+                  </div>
+                  <h3 className="font-bold text-lg text-foreground mb-3">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 }

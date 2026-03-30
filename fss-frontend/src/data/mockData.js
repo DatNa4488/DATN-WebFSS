@@ -328,3 +328,64 @@ export const revenueData = [
   { month: 'T11', revenue: 850000000 },
   { month: 'T12', revenue: 940000000 },
 ];
+export const blogPosts = [
+  {
+    id: 1,
+    title: 'Xu hướng thời trang Xuân - Hè 2025: Sự trở lại của Minimalism',
+    excerpt: 'Khám phá những gam màu trung tính, chất liệu Linen cao cấp và phong cách tối giản đang làm mưa làm gió trong làng mốt năm nay.',
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80',
+    category: 'Xu hướng',
+    date: '20/03/2025',
+    author: 'FSS Editorial',
+    readingTime: '5 phút',
+    featured: true,
+  },
+  {
+    id: 2,
+    title: 'Cách phối đồ với áo Blazer dành cho môi trường công sở hiện đại',
+    excerpt: 'Làm thế nào để mặc Blazer mà không bị "già"? Bí quyết nằm ở sự kết hợp linh hoạt giữa phụ kiện và chất vải.',
+    image: 'https://images.unsplash.com/photo-1548142813-c348350df52b?w=800&q=80',
+    category: 'Phối đồ',
+    date: '15/03/2025',
+    author: 'Stylist Tâm Nguyễn',
+    readingTime: '4 phút',
+  },
+  {
+    id: 3,
+    title: '5 món phụ kiện không thể thiếu trong tủ đồ của quý cô sành điệu',
+    excerpt: 'Túi xách kẹp nách, thắt lưng da nguyên bản và trang sức tối giản là những trợ thủ đắc lực giúp nâng tầm phong cách.',
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80',
+    category: 'Phụ kiện',
+    date: '10/03/2025',
+    author: 'Beauty & Style',
+    readingTime: '3 phút',
+  },
+  {
+    id: 4,
+    title: 'Chất liệu vải Linen và lý do tại sao bạn nên sở hữu ít nhất một món đồ',
+    excerpt: 'Không chỉ bền bỉ, vải Linen còn mang lại cảm giác thoáng mát tuyệt vời cho những ngày nắng nóng.',
+    image: 'https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=800&q=80',
+    category: 'Chất liệu',
+    date: '05/03/2025',
+    author: 'Kỹ thuật may mặc',
+    readingTime: '6 phút',
+  }
+];
+
+export const contactInfo = {
+  // Theo yêu cầu giao diện Contact Page + Google Maps
+  address: 'Trường Đại học Thủy Lợi, 175 Tây Sơn, Đống Đa, Hà Nội',
+  phone: '0858317285',
+  email: 'ndat45489@gmail.com',
+  workingHours: '08:00 - 22:00 (Hàng ngày)',
+  social: [
+    { name: 'Facebook', url: '#' },
+    { name: 'Instagram', url: '#' },
+    { name: 'Tiktok', url: '#' }
+  ],
+  faq: [
+    { q: 'Phí vận chuyển được tính như thế nào?', a: 'FSS miễn phí vận chuyển cho tất cả đơn hàng trên 500,000đ. Với đơn hàng dưới mức này, phí ship đồng giá 30,000đ toàn quốc.' },
+    { q: 'Tôi có thể đổi trả hàng trong bao lâu?', a: 'Bạn có thể đổi trả hàng trong vòng 7 ngày kể từ khi nhận được sản phẩm (với điều kiện team mác còn nguyên vẹn).' },
+    { q: 'Làm sao để biết size đồ vừa với tôi?', a: 'Mỗi sản phẩm tại FSS đều có bảng quy đổi size chi tiết. Bạn cũng có thể liên hệ chatbot AI hoặc nhân viên để được tư vấn kích thước chuẩn nhất.' }
+  ]
+};

@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Heart } from 'lucide-react';
 
 const InstagramIcon = ({ size, className }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
 );
 const FacebookIcon = ({ size, className }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
 );
 const YoutubeIcon = ({ size, className }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" /><path d="m10 15 5-3-5-3z" /></svg>
 );
 
 const footerLinks = {
@@ -41,57 +41,53 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white mt-24 lg:mt-32">
-      <div className="layout-page py-20 lg:py-32">
-        {/* Newsletter Row */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-16">
-          <div>
-            <h3 className="text-[22px] font-bold font-display tracking-wide mb-1.5">Mua ngay nhận ưu đãi</h3>
-            <p className="text-white/70 text-[13px] font-medium">Nhận ngay 10% giảm giá cho đơn hàng đầu tiên!</p>
-          </div>
-        </div>
+    <footer className="gradient-primary-to-secondary text-white mt-32 lg:mt-48 relative overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
+      <div className="layout-page pt-28 pb-24 lg:pt-48 lg:pb-40 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-10 mb-16">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-3 mb-5 group w-fit">
-              <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center overflow-hidden border border-white/20">
-                <img src="/logo.png" alt="FSS" className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300" />
+            <Link to="/" className="inline-flex items-center gap-4 mb-6 group">
+              <div className="w-16 h-16 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                <img src="/logo.png" alt="FSS" className="w-full h-full object-contain" />
               </div>
               <div>
-                <p className="text-[10px] text-white/50 tracking-[0.2em] uppercase font-bold">Fashion Shopping</p>
-                <p className="text-[22px] font-bold tracking-tight leading-none mt-0.5">Sense</p>
+                <p className="text-xs text-white/70 tracking-widest font-bold uppercase">Fashion Shopping</p>
+                <p className="text-3xl font-bold tracking-tight leading-none">Sense</p>
               </div>
             </Link>
-            <p className="text-white/60 text-[13px] leading-relaxed max-w-sm mb-6 mt-2">
+            <p className="text-white/60 text-sm leading-relaxed max-w-sm mb-6 mt-3">
               Nền tảng mua sắm thời trang thông minh — kết hợp AI tìm kiếm sản phẩm tương đồng để mang đến trải nghiệm mua sắm tốt nhất.
             </p>
-            <div className="space-y-3.5">
-              <div className="flex items-center gap-3 text-[13px] text-white/70">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors">
                 <Phone size={16} className="text-white/40 shrink-0" />
                 <span className="font-medium">0858317285</span>
               </div>
-              <div className="flex items-center gap-3 text-[13px] text-white/70">
+              <div className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors">
                 <Mail size={16} className="text-white/40 shrink-0" />
                 <span className="font-medium">ndat45489@gmail.com</span>
               </div>
-              <div className="flex items-start gap-3 text-[13px] text-white/70">
+              <div className="flex items-start gap-3 text-sm text-white/70 hover:text-white transition-colors">
                 <MapPin size={16} className="text-white/40 shrink-0 mt-0.5" />
-                <span className="font-medium leading-relaxed max-w-[250px]">Đại học thủy lợi, Tây Sơn, Hà Nội</span>
+                <span className="font-medium leading-relaxed max-w-xs">Đại học thủy lợi, Tây Sơn, Hà Nội</span>
               </div>
             </div>
           </div>
 
           {/* Links */}
           {Object.entries(footerLinks).map(([section, links]) => (
-            <div key={section} className="lg:pl-8">
-              <h4 className="font-bold text-[13px] tracking-widest uppercase text-white mb-6">{section}</h4>
+            <div key={section} className="lg:pl-4">
+              <h4 className="font-bold text-xs tracking-widest uppercase text-white mb-6 opacity-90">{section}</h4>
               <ul className="space-y-3.5">
                 {links.map((link) => (
                   <li key={link.path}>
                     <Link
                       to={link.path}
-                      className="text-[13px] text-white/50 hover:text-white transition-colors font-medium"
+                      className="text-sm text-white/60 hover:text-white hover:pl-1 transition-all font-medium"
                     >
                       {link.label}
                     </Link>
@@ -104,10 +100,10 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/5 bg-black/20">
-        <div className="layout-page py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/40 text-[11px] tracking-widest uppercase font-semibold">
-            © 2026 FASHION SHOPPING SENSE
+      <div className="border-t border-white/10 bg-black/30 backdrop-blur-sm">
+        <div className="layout-page pt-10 pb-8 flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
+          <p className="text-white/50 text-xs tracking-widest uppercase font-semibold">
+            © 2026 FASHION SHOPPING SENSE. ALL RIGHTS RESERVED.
           </p>
           <div className="flex items-center gap-5">
             {socials.map(({ icon: Icon, href, label, color }) => (
@@ -115,9 +111,10 @@ export default function Footer() {
                 key={label}
                 href={href}
                 aria-label={label}
-                className={`text-white/40 ${color} transition-all hover:scale-110`}
+                className={`text-white/40 ${color} transition-all hover:scale-110 hover:text-white`}
+                title={label}
               >
-                <Icon size={18} />
+                <Icon size={20} strokeWidth={1.5} />
               </a>
             ))}
           </div>

@@ -50,12 +50,12 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex relative bg-white">
       {/* Back to Home Button - Minimalist */}
-      <Link 
-        to="/" 
+      <Link
+        to="/"
         className="absolute top-10 left-10 z-50 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-primary hover:opacity-100 transition-all group lg:text-white"
       >
         <div className="w-8 h-8 rounded-full border border-slate-100 lg:border-white/20 flex items-center justify-center group-hover:bg-slate-50 lg:group-hover:bg-white/10 transition-colors">
-           <span className="text-lg">←</span>
+          <span className="text-lg">←</span>
         </div>
         QUAY LẠI
       </Link>
@@ -74,7 +74,7 @@ export default function RegisterPage() {
           ))}
         </div>
         <div className="relative z-10 text-center flex flex-col items-center">
-          <div className="w-24 h-24 bg-white rounded-[2rem] flex items-center justify-center mb-6 shadow-2xl overflow-hidden p-4">
+          <div className="w-32 h-32 flex items-center justify-center mb-4 transition-all duration-500">
             <img src="/logo.png" alt="FSS" className="w-full h-full object-contain hover:scale-110 transition-transform duration-500" />
           </div>
           <h1 className="text-4xl font-bold font-display mb-3 leading-tight">Tham gia FSS<br />ngay hôm nay!</h1>
@@ -93,8 +93,8 @@ export default function RegisterPage() {
           className="w-full max-w-sm"
         >
           <div className="mb-12">
-             <h2 className="text-[24px] text-headline leading-tight mb-2 uppercase">TẠO TÀI KHOẢN</h2>
-             <p className="text-[13px] text-muted-foreground font-medium">Trở thành thành viên của gia đình FSS ngay hôm nay.</p>
+            <h2 className="text-[24px] text-headline leading-tight mb-2 uppercase">TẠO TÀI KHOẢN</h2>
+            <p className="text-[13px] text-muted-foreground font-medium">Trở thành thành viên của gia đình FSS ngay hôm nay.</p>
           </div>
 
           <form id="register-form" onSubmit={handleSubmit} className="space-y-10">
@@ -167,7 +167,7 @@ export default function RegisterPage() {
               {formData.password && (
                 <div className="mt-4 space-y-1">
                   <div className="flex gap-1.5">
-                    {[1,2,3,4,5].map((s) => (
+                    {[1, 2, 3, 4, 5].map((s) => (
                       <div key={s} className={`h-0.5 flex-1 rounded-full transition-all ${s <= strength ? strengthColors[strength] : 'bg-slate-100'}`} />
                     ))}
                   </div>
@@ -187,9 +187,8 @@ export default function RegisterPage() {
                   placeholder="••••••••"
                   value={formData.confirm}
                   onChange={handleChange}
-                  className={`w-full border-b-2 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none transition-all placeholder:text-slate-200 rounded-none ${
-                    passwordMismatch ? 'border-rose-500' : 'border-slate-100 focus:border-primary'
-                  }`}
+                  className={`w-full border-b-2 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none transition-all placeholder:text-slate-200 rounded-none ${passwordMismatch ? 'border-rose-500' : 'border-slate-100 focus:border-primary'
+                    }`}
                 />
               </div>
               {passwordMismatch && (
@@ -227,10 +226,10 @@ export default function RegisterPage() {
               id="register-submit-btn"
               type="submit"
               disabled={loading || !agreed || passwordMismatch}
-              className="w-full py-5 bg-primary text-white text-[12px] font-black uppercase tracking-[0.3em] rounded-sm hover:bg-secondary transition-all shadow-xl shadow-primary/10 flex items-center justify-center gap-3 mt-4"
+              className="w-full py-4.5 bg-primary text-white text-[11px] font-black uppercase tracking-[0.2em] rounded-none hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 mt-10 disabled:opacity-50 disabled:bg-slate-400 disabled:shadow-none"
             >
               {loading ? (
-                <><span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> ĐANG XỬ LÝ...</>
+                <><span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> ĐANG XỬ LÝ...</>
               ) : 'ĐĂNG KÝ'}
             </motion.button>
           </form>

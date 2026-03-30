@@ -19,6 +19,8 @@ import CartPage from '../pages/customer/CartPage';
 import CheckoutPage from '../pages/customer/CheckoutPage';
 import ProfilePage from '../pages/customer/ProfilePage';
 import VisualSearchPage from '../pages/customer/VisualSearchPage';
+import BlogPage from '../pages/customer/BlogPage';
+import ContactPage from '../pages/customer/ContactPage';
 
 // Admin
 import AdminDashboard from '../pages/admin/AdminDashboard';
@@ -81,6 +83,9 @@ export default function AppRouter() {
           <Route path="/products/:id" element={<ProductDetailPage />} />
           <Route path="/visual-search" element={<VisualSearchPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<BlogPage />} />
+          <Route path="/contact" element={<ContactPage />} />
 
           {/* Protected customer routes */}
           <Route element={<CustomerRoute />}>

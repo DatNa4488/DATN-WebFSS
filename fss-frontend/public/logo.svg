@@ -1,0 +1,35 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Square background with subtle border -->
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+    </style>
+  </defs>
+  
+  <!-- Main square -->
+  <rect x="20" y="20" width="472" height="472" fill="white" stroke="#1a1a1a" stroke-width="2" rx="12"/>
+  
+  <!-- Decorative corner accents -->
+  <line x1="40" y1="40" x2="80" y2="40" stroke="#1a1a1a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="40" y1="40" x2="40" y2="80" stroke="#1a1a1a" stroke-width="1.5" opacity="0.4"/>
+  
+  <line x1="472" y1="40" x2="432" y2="40" stroke="#1a1a1a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="472" y1="40" x2="472" y2="80" stroke="#1a1a1a" stroke-width="1.5" opacity="0.4"/>
+  
+  <line x1="40" y1="472" x2="80" y2="472" stroke="#1a1a1a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="40" y1="472" x2="40" y2="432" stroke="#1a1a1a" stroke-width="1.5" opacity="0.4"/>
+  
+  <line x1="472" y1="472" x2="432" y2="472" stroke="#1a1a1a" stroke-width="1.5" opacity="0.4"/>
+  <line x1="472" y1="472" x2="472" y2="432" stroke="#1a1a1a" stroke-width="1.5" opacity="0.4"/>
+  
+  <!-- Small star accent -->
+  <g transform="translate(420, 80)">
+    <polygon points="0,-8 2.4,-2.4 8,-0.8 4,3.2 5.6,8.8 0,5.6 -5.6,8.8 -4,3.2 -8,-0.8 -2.4,-2.4" fill="#1a1a1a" opacity="0.6"/>
+  </g>
+  
+  <!-- FSS Text -->
+  <text x="256" y="320" font-family="'Didot', 'Playfair Display', serif" font-size="180" font-weight="700" text-anchor="middle" fill="#1a1a1a" letter-spacing="-2">FSS</text>
+  
+  <!-- Fashion Shopping Sense subtitle -->
+  <text x="256" y="420" font-family="'Didot', 'Playfair Display', serif" font-size="28" text-anchor="middle" fill="#1a1a1a" opacity="0.7" letter-spacing="3">Fashion Shopping Sense</text>
+</svg>

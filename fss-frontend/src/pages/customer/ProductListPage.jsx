@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search, SlidersHorizontal, X, Camera, ChevronDown } from 'lucide-react';
 import { products, categories, formatPrice } from '../../data/mockData';
 import ProductCard from '../../components/ui/ProductCard';
@@ -76,166 +76,233 @@ export default function ProductListPage() {
   }, [activeCategory, search, sortBy, priceRange, selectedSizes]);
 
   return (
-    <div className="min-h-screen bg-surface-secondary page-enter">
+    <div className="min-h-screen bg-white page-enter">
       {/* Header */}
-      <div className="bg-white border-b border-border">
-        <div className="layout-page py-8 lg:py-12">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold font-display text-foreground">Sản phẩm</h1>
-              <p className="text-sm text-muted mt-0.5">
-                {filtered.length} sản phẩm{activeCategory !== 'all' && ` trong "${categories.find(c => c.slug === activeCategory)?.name || activeCategory}"`}
-              </p>
+      <div className="border-b border-border bg-gradient-to-b from-primary-50 to-white">
+        <div className="layout-page py-16 lg:py-20">
+          <div className="mb-10">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-foreground mb-3">
+              Khám phá sản phẩm
+            </h1>
+            <p className="text-sm text-muted-foreground max-w-2xl">
+              {filtered.length} sản phẩm tìm thấy
+              {activeCategory !== 'all' && ` trong danh mục "${categories.find(c => c.slug === activeCategory)?.name || activeCategory}"`}
+            </p>
+          </div>
+
+          {/* Search & Controls */}
+          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 mb-12">
+            {/* Search Input - Full Width on Mobile */}
+            <div className="relative flex-1 lg:flex-none lg:w-80">
+              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <input
+                id="product-search"
+                type="text"
+                placeholder="Tìm kiếm sản phẩm..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="input-premium w-full !pl-14 pr-4 py-3 text-sm rounded-none"
+              />
             </div>
-            <div className="flex items-center gap-2 w-full sm:w-auto">
-              {/* Search */}
-              <div className="relative flex-1 sm:w-64">
-                <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  id="product-search"
-                  type="text"
-                  placeholder="Tìm kiếm sản phẩm..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 border border-border rounded-xl text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-secondary transition-all"
-                />
-              </div>
-              {/* Sort */}
-              <div className="relative">
+
+            {/* Right Controls Wrapper */}
+            <div className="flex items-stretch gap-3 w-full lg:w-auto">
+              {/* Sort Dropdown */}
+              <div className="relative flex-1 lg:flex-none lg:min-w-max">
                 <select
                   id="sort-select"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="pl-3 pr-8 py-2 border border-border rounded-xl text-sm bg-white focus:outline-none focus:border-primary appearance-none cursor-pointer"
+                  className="input-premium pl-4 pr-10 py-3 text-sm appearance-none cursor-pointer rounded-none bg-white w-full"
                 >
                   {sortOptions.map((o) => (
                     <option key={o.value} value={o.value}>{o.label}</option>
                   ))}
                 </select>
-                <ChevronDown size={13} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+                <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
               </div>
-              {/* Filter toggle */}
-              <button
+
+              {/* Filter Button */}
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 id="filter-btn"
                 onClick={() => setShowFilters(!showFilters)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
-                  showFilters ? 'bg-primary text-white border-primary' : 'bg-white text-tertiary border-border hover:border-primary'
+                className={`flex items-center justify-center gap-2 px-5 py-3 rounded-none font-semibold text-sm transition-all whitespace-nowrap ${
+                  showFilters
+                    ? 'bg-primary text-white shadow-soft'
+                    : 'bg-surface-secondary text-foreground border border-border hover:border-primary'
                 }`}
               >
-                <SlidersHorizontal size={14} /> Bộ lọc
-              </button>
+                <SlidersHorizontal size={16} strokeWidth={2} />
+                <span className="hidden sm:inline">Bộ lọc</span>
+              </motion.button>
+
+              {/* Visual Search */}
               <Link
                 to="/visual-search"
-                className="flex items-center gap-1.5 px-3 py-2 bg-accent-soft text-primary rounded-xl text-sm font-medium hover:bg-accent-soft-hover transition-colors"
+                className="flex items-center justify-center gap-2 px-5 py-3 bg-primary-50 text-primary rounded-none text-sm font-semibold hover:bg-primary-100 transition-colors border border-primary-200 whitespace-nowrap"
               >
-                <Camera size={14} /> Tìm ảnh
+                <Camera size={16} strokeWidth={2} />
+                <span className="hidden sm:inline">Tìm ảnh</span>
               </Link>
             </div>
           </div>
 
-          {/* Category tabs */}
-          <div className="flex gap-2 overflow-x-auto mt-4 pb-1">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setCategory(cat.slug)}
-                className={`px-3.5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all shrink-0 ${
-                  activeCategory === cat.slug
-                    ? 'bg-primary text-white'
-                    : 'bg-white text-tertiary border border-border hover:border-primary hover:text-primary'
-                }`}
-              >
-                {cat.name}
-              </button>
-            ))}
-          </div>
+
         </div>
       </div>
 
-      <div className="layout-page py-12 lg:py-20 flex gap-6">
+      <div className="layout-page py-20 lg:py-28 flex gap-12">
         {/* Sidebar Filters */}
-        {showFilters && (
-          <motion.aside
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="w-56 shrink-0"
-          >
-            <div className="bg-white rounded-2xl border border-border p-5 sticky top-24 space-y-6">
-              <h3 className="font-semibold text-foreground text-sm">Bộ lọc</h3>
-
-              {/* Price */}
-              <div>
-                <p className="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Khoảng giá</p>
-                {priceRanges.map((range, i) => (
-                  <label key={i} className="flex items-center gap-2 py-1.5 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="price"
-                      checked={priceRange === i}
-                      onChange={() => setPriceRange(i)}
-                      className="accent-primary"
-                    />
-                    <span className="text-sm text-tertiary">{range.label}</span>
-                  </label>
-                ))}
-              </div>
-
-              {/* Sizes */}
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-xs font-semibold text-muted uppercase tracking-wider">Size</p>
-                  {selectedSizes.length > 0 && (
-                    <button onClick={() => setSelectedSizes([])} className="text-xs text-primary hover:underline">Xóa</button>
-                  )}
+        <AnimatePresence>
+          {showFilters && (
+            <motion.aside
+              initial={{ opacity: 0, x: -30, width: 0 }}
+              animate={{ opacity: 1, x: 0, width: 'auto' }}
+              exit={{ opacity: 0, x: -30, width: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="hidden lg:block w-64 shrink-0"
+            >
+              <div className="card-elevated p-6 sticky top-24 space-y-7">
+                <div>
+                  <h3 className="font-bold text-lg text-foreground mb-1">Bộ lọc</h3>
+                  <p className="text-xs text-muted-foreground">Tinh chỉnh kết quả tìm kiếm</p>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {sizesAll.map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => toggleSize(s)}
-                      className={`px-2.5 py-1 text-xs rounded-lg border transition-all ${
-                        selectedSizes.includes(s)
-                          ? 'bg-primary text-white border-primary'
-                          : 'border-border text-tertiary hover:border-primary'
-                      }`}
-                    >
-                      {s}
-                    </button>
-                  ))}
+
+                {/* Price Ranges */}
+                <div className="pb-6 border-b border-border">
+                  <p className="text-xs font-bold text-muted uppercase tracking-wider mb-4">Khoảng giá</p>
+                  <div className="space-y-2">
+                    {priceRanges.map((range, i) => (
+                      <label key={i} className="flex items-center gap-3 py-2 cursor-pointer hover:text-primary transition-colors">
+                        <input
+                          type="radio"
+                          name="price"
+                          checked={priceRange === i}
+                          onChange={() => setPriceRange(i)}
+                          className="w-4 h-4 accent-primary cursor-pointer"
+                        />
+                        <span className="text-sm text-foreground">{range.label}</span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
+
+                {/* Sizes */}
+                <div className="pb-6 border-b border-border">
+                  <div className="flex items-center justify-between mb-4">
+                    <p className="text-xs font-bold text-muted uppercase tracking-wider">Size</p>
+                    {selectedSizes.length > 0 && (
+                      <button
+                        onClick={() => setSelectedSizes([])}
+                        className="text-xs font-semibold text-primary hover:text-primary-700 transition-colors"
+                      >
+                        Xóa
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {sizesAll.map((s) => (
+                      <button
+                        key={s}
+                        onClick={() => toggleSize(s)}
+                        className={`px-3 py-2 text-xs font-semibold rounded-none border transition-all ${
+                          selectedSizes.includes(s)
+                            ? 'bg-primary text-white border-primary shadow-soft'
+                            : 'border-border text-foreground hover:border-primary hover:text-primary'
+                        }`}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Clear All */}
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => { setPriceRange(0); setSelectedSizes([]); setSearch(''); }}
+                  className="w-full py-3 text-sm font-semibold text-error bg-error-light border-2 border-error-light rounded-none hover:bg-error/10 transition-all"
+                >
+                  ✕ Xóa tất cả bộ lọc
+                </motion.button>
               </div>
+            </motion.aside>
+          )}
+        </AnimatePresence>
 
-              <button
-                onClick={() => { setPriceRange(0); setSelectedSizes([]); setSearch(''); }}
-                className="w-full py-2 text-sm text-red-500 border border-red-200 rounded-xl hover:bg-red-50 transition-colors"
-              >
-                Xóa tất cả bộ lọc
-              </button>
-            </div>
-          </motion.aside>
-        )}
-
-        {/* Products */}
+        {/* Products Grid */}
         <div className="flex-1">
           {filtered.length === 0 ? (
-            <div className="text-center py-32 lg:py-48">
-              <p className="text-5xl mb-4">🔍</p>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Không tìm thấy sản phẩm</h3>
-              <p className="text-sm text-muted">Thử từ khóa khác hoặc <Link to="/visual-search" className="text-primary hover:underline">tìm kiếm bằng ảnh</Link></p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center py-32 lg:py-48 flex flex-col items-center justify-center"
+            >
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="mb-8"
+              >
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="mx-auto">
+                  {/* Search circle */}
+                  <motion.circle
+                    cx="45" cy="45" r="40"
+                    stroke="url(#gradient)" strokeWidth="3" fill="none"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  {/* Search handle */}
+                  <motion.line
+                    x1="72" y1="72" x2="100" y2="100"
+                    stroke="url(#gradient)" strokeWidth="4" strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
+                  />
+                  {/* Question mark inside */}
+                  <text x="45" y="55" fontSize="32" fontWeight="bold" textAnchor="middle" fill="url(#gradient)" fontFamily="Arial">?</text>
+                  
+                  <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#00168D" />
+                      <stop offset="100%" stopColor="#1E3B87" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </motion.div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Không tìm thấy sản phẩm</h3>
+              <p className="text-sm sm:text-base text-muted-foreground mb-8 max-w-md mx-auto">
+                Thử lại với từ khóa khác hoặc điều chỉnh bộ lọc của bạn
+              </p>
+              <Link
+                to="/visual-search"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-none hover:bg-primary-700 transition-colors shadow-soft"
+              >
+                <Camera size={18} />
+                Tìm kiếm bằng ảnh
+              </Link>
+            </motion.div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            >
               {filtered.map((p, i) => (
                 <motion.div
                   key={p.id}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04, duration: 0.3 }}
+                  transition={{ delay: i * 0.05, duration: 0.3 }}
                 >
                   <ProductCard product={p} />
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
         </div>
       </div>

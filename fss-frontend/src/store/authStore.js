@@ -1,23 +1,25 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-// Tài khoản demo (trong thực tế sẽ call API)
-const DEMO_ACCOUNTS = [
+// Tài khoản demo (hiện tại vẫn là mock phía client)
+const DEMO_ACCOUNTS_SEED = [
   { id: 1, name: 'Nguyễn Văn Đạt', email: 'dat@example.com', password: '123456', role: 'customer', avatar: 'https://i.pravatar.cc/150?img=1' },
   { id: 2, name: 'Admin FSS', email: 'admin@fss.vn', password: 'admin123', role: 'admin', avatar: 'https://i.pravatar.cc/150?img=3' },
 ];
 
 const useAuthStore = create(
   persist(
-    (set) => ({
+    (set, get) => ({
+      // Lưu mảng tài khoản trong state để đăng ký vẫn đăng nhập được sau khi reload.
+      // Lưu ý: đây chỉ là mock client (có chứa password) nên không phù hợp production.
+      accounts: DEMO_ACCOUNTS_SEED,
       user: null,
       isAuthenticated: false,
       authError: null,
 
       login: (email, password) => {
-        const found = DEMO_ACCOUNTS.find(
-          (u) => u.email === email && u.password === password
-        );
+        const { accounts } = get();
+        const found = accounts.find((u) => u.email === email && u.password === password);
         if (found) {
           const { password: _, ...safeUser } = found;
           set({ user: safeUser, isAuthenticated: true, authError: null });
@@ -29,20 +31,29 @@ const useAuthStore = create(
       },
 
       register: (name, email, password) => {
-        const exists = DEMO_ACCOUNTS.find((u) => u.email === email);
+        const { accounts } = get();
+        const exists = accounts.find((u) => u.email === email);
         if (exists) {
           set({ authError: 'Email này đã được sử dụng.' });
           return { success: false };
         }
+
+        const nextId = Math.max(0, ...accounts.map((u) => u.id)) + 1;
         const newUser = {
-          id: DEMO_ACCOUNTS.length + 1,
+          id: nextId,
           name,
           email,
           role: 'customer',
-          avatar: `https://i.pravatar.cc/150?img=${DEMO_ACCOUNTS.length + 10}`,
+          avatar: `https://i.pravatar.cc/150?img=${nextId + 10}`,
         };
-        DEMO_ACCOUNTS.push({ ...newUser, password });
-        set({ user: newUser, isAuthenticated: true, authError: null });
+
+        const nextAccount = { ...newUser, password };
+        set((state) => ({
+          accounts: [...state.accounts, nextAccount],
+          user: newUser,
+          isAuthenticated: true,
+          authError: null,
+        }));
         return { success: true };
       },
 
@@ -55,7 +66,11 @@ const useAuthStore = create(
     }),
     {
       name: 'fss-auth',
-      partialize: (state) => ({ user: state.user, isAuthenticated: state.isAuthenticated }),
+      partialize: (state) => ({
+        accounts: state.accounts,
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+      }),
     }
   )
 );

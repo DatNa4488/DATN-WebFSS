@@ -75,7 +75,7 @@ export default function Header() {
       >
 
         <div className={`layout-page flex items-center justify-between gap-8 min-h-[72px] lg:min-h-[80px] ${scrolled ? 'py-2' : 'py-4'}`}>
-          {/* Logo only — lớn, sát thanh trên */}
+          {/* Logo */}
           <Link
             to="/"
             className="flex items-center shrink-0 group"
@@ -123,7 +123,7 @@ export default function Header() {
               </button>
               <input
                 type="text"
-                placeholder="Tìm kiếm..."
+                placeholder="Nhập tên sản phẩm..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="bg-transparent border-none outline-none text-[13px] w-full text-foreground placeholder:text-muted-foreground font-medium pl-2"
@@ -155,18 +155,30 @@ export default function Header() {
                 )}
               </motion.button>
 
-              {/* User */}
+              {/* User Account */}
               <div className="relative" ref={userMenuRef}>
-                <motion.button
-                  whileTap={{ scale: 0.92 }}
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="p-2 rounded-full text-[#374151] hover:text-primary hover:bg-slate-100 transition-colors"
-                >
-                  <User size={22} strokeWidth={1.5} />
-                </motion.button>
+                {isAuthenticated ? (
+                  <motion.button
+                    whileTap={{ scale: 0.92 }}
+                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                    className="p-2 rounded-full text-[#374151] hover:text-primary hover:bg-slate-100 transition-colors"
+                    title="Tài khoản"
+                  >
+                    <User size={22} strokeWidth={1.5} />
+                  </motion.button>
+                ) : (
+                  <Link to="/login" title="Đăng nhập">
+                    <motion.button
+                      whileTap={{ scale: 0.92 }}
+                      className="p-2 rounded-full text-[#374151] hover:text-primary hover:bg-slate-100 transition-colors"
+                    >
+                      <User size={22} strokeWidth={1.5} />
+                    </motion.button>
+                  </Link>
+                )}
 
                 <AnimatePresence>
-                  {userMenuOpen && (
+                  {userMenuOpen && isAuthenticated && (
                     <motion.div
                       initial={{ opacity: 0, y: 15, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -174,55 +186,31 @@ export default function Header() {
                       transition={{ type: 'spring', damping: 20, stiffness: 300 }}
                       className="absolute right-0 top-full mt-3 w-80 bg-white rounded-3xl shadow-2xl shadow-primary/10 border border-primary/5 py-2 z-50 overflow-hidden"
                     >
-                      {isAuthenticated ? (
-                        <>
-                          <div className="px-6 py-4 border-b border-slate-50 bg-slate-50/30">
-                            <p className="font-bold text-sm text-foreground">{user.name}</p>
-                            <p className="text-[11px] text-muted-foreground font-medium">{user.email}</p>
-                          </div>
-                          <div className="p-1.5">
-                            {user.role === 'admin' ? (
-                              <Link to="/admin" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-[13px] font-semibold text-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all">
-                                <Settings size={17} /> Quản trị viên
-                              </Link>
-                            ) : (
-                              <>
-                                <Link to="/profile" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-[13px] font-semibold text-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all">
-                                  <User size={17} /> Hồ sơ cá nhân
-                                </Link>
-                                <Link to="/orders" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-[13px] font-semibold text-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all">
-                                  <Package size={17} /> Đơn hàng của tôi
-                                </Link>
-                              </>
-                            )}
-                            <div className="mt-1 pt-1 border-t border-slate-50">
-                              <button onClick={handleLogout} className="flex items-center gap-3 w-full px-4 py-3 text-[13px] font-semibold text-rose-500 hover:bg-rose-50 rounded-xl transition-all">
-                                <LogOut size={17} /> Đăng xuất
-                              </button>
-                            </div>
-                          </div>
-                        </>
-                      ) : (
-                        <div className="p-6 flex flex-col items-center">
-                          <p className="text-[13px] text-muted-foreground font-medium mb-6">Chào mừng đến với FSS!</p>
-                          <div className="flex items-center gap-4 w-full">
-                            <Link
-                              to="/login"
-                              onClick={() => setUserMenuOpen(false)}
-                              className="flex-[1.2] text-center py-5 text-[14px] font-black tracking-widest uppercase text-white bg-primary rounded-full hover:bg-secondary transition-all shadow-2xl shadow-primary/30"
-                            >
-                              Đăng nhập
+                      <div className="px-6 py-4 border-b border-slate-50 bg-slate-50/30">
+                        <p className="font-bold text-sm text-foreground">{user.name}</p>
+                        <p className="text-[11px] text-muted-foreground font-medium">{user.email}</p>
+                      </div>
+                      <div className="p-1.5">
+                        {user.role === 'admin' ? (
+                          <Link to="/admin" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-[13px] font-semibold text-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all">
+                            <Settings size={17} /> Quản trị viên
+                          </Link>
+                        ) : (
+                          <>
+                            <Link to="/profile" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-[13px] font-semibold text-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all">
+                              <User size={17} /> Hồ sơ cá nhân
                             </Link>
-                            <Link
-                              to="/register"
-                              onClick={() => setUserMenuOpen(false)}
-                              className="flex-1 text-center py-5 text-[14px] font-black tracking-widest uppercase text-primary hover:text-secondary hover:bg-primary/5 rounded-full transition-all whitespace-nowrap"
-                            >
-                              Đăng ký
+                            <Link to="/orders" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-[13px] font-semibold text-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all">
+                              <Package size={17} /> Đơn hàng của tôi
                             </Link>
-                          </div>
+                          </>
+                        )}
+                        <div className="mt-1 pt-1 border-t border-slate-50">
+                          <button onClick={handleLogout} className="flex items-center gap-3 w-full px-4 py-3 text-[13px] font-semibold text-rose-500 hover:bg-rose-50 rounded-xl transition-all">
+                            <LogOut size={17} /> Đăng xuất
+                          </button>
                         </div>
-                      )}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -254,7 +242,7 @@ export default function Header() {
                   <Search size={16} className="text-muted-foreground mr-2" />
                   <input
                     type="text"
-                    placeholder="Tìm kiếm..."
+                    placeholder="Nhập tên sản phẩm..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="bg-transparent border-none outline-none text-sm w-full text-foreground"
@@ -275,7 +263,7 @@ export default function Header() {
         </AnimatePresence>
       </motion.header>
 
-      {/* Spacer: thanh 3px + logo + padding */}
+      {/* Spacer */}
       <div className="h-[104px] lg:h-[132px]" />
     </>
   );

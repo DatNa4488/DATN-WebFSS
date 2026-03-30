@@ -1,30 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronRight, MessageCircle, Zap, Shield, Truck } from 'lucide-react';
+import { ArrowRight, Zap, Shield, Truck, ChevronRight } from 'lucide-react';
 import { products, categories, formatPrice } from '../../data/mockData';
 import ProductCard from '../../components/ui/ProductCard';
 
 /* Khung chung với header/footer — luôn có lề hai bên */
 const containerClass = 'layout-page';
 
-const faqs = [
-  {
-    id: 1,
-    question: 'Phí vận chuyển được tính như thế nào?',
-    answer: 'Chúng tôi cung cấp miễn phí vận chuyển cho tất cả đơn hàng. Thời gian giao hàng thường là 2-3 ngày làm việc tại khu vực thành phố.'
-  },
-  {
-    id: 2,
-    question: 'Tôi có thể đổi trả hàng trong bao lâu?',
-    answer: 'Bạn có thể đổi trả hàng trong vòng 30 ngày kể từ ngày nhận đơn hàng. Sản phẩm phải còn nguyên bao bì, chưa qua sử dụng.'
-  },
-  {
-    id: 3,
-    question: 'Làm sao để biết size đó vừa với tôi?',
-    answer: 'Mỗi sản phẩm đều có bảng size chi tiết. Bạn cũng có thể tham khảo phần review của khách hàng khác để biết độ vừa vặn.'
-  },
-];
+
 
 const features = [
   {
@@ -46,7 +30,6 @@ const features = [
 
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [expandedFaq, setExpandedFaq] = useState(0);
   const heroProduct = products[0];
 
   const filteredProducts = activeCategory === 'all'
@@ -195,7 +178,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== FEATURES SECTION ===== */}
-      <section className="py-20 lg:py-24 bg-white">
+      <section className="py-20 lg:py-28 bg-white mb-8 lg:mb-12">
         <div className={containerClass}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -223,6 +206,9 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
+
+
+
     </div>
   );
 }

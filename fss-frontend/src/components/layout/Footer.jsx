@@ -41,12 +41,12 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="gradient-primary-to-secondary text-white mt-32 lg:mt-48 relative overflow-hidden">
+    <footer className="gradient-primary-to-secondary text-white mt-64 lg:mt-80 relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
-      <div className="layout-page pt-28 pb-24 lg:pt-48 lg:pb-40 relative z-10">
+      <div className="layout-page pt-48 pb-24 lg:pt-80 lg:pb-40 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-10 mb-16">
           {/* Brand */}
           <div className="lg:col-span-2">
@@ -56,7 +56,7 @@ export default function Footer() {
               </div>
               <div>
                 <p className="text-xs text-white/70 tracking-widest font-bold uppercase">Fashion Shopping</p>
-                <p className="text-3xl font-bold tracking-tight leading-none">Sense</p>
+                <p className="text-3xl font-semibold tracking-tight leading-none">Sense</p>
               </div>
             </Link>
             <p className="text-white/60 text-sm leading-relaxed max-w-sm mb-6 mt-3">
@@ -80,8 +80,8 @@ export default function Footer() {
 
           {/* Links */}
           {Object.entries(footerLinks).map(([section, links]) => (
-            <div key={section} className="lg:pl-4">
-              <h4 className="font-bold text-xs tracking-widest uppercase text-white mb-6 opacity-90">{section}</h4>
+            <div key={section} className="lg:pl-4 lg:pt-8">
+              <h4 className="font-semibold text-xs tracking-widest uppercase text-white/80 mb-6">{section}</h4>
               <ul className="space-y-3.5">
                 {links.map((link) => (
                   <li key={link.path}>

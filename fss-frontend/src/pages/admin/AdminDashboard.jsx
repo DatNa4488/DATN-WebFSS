@@ -49,7 +49,7 @@ export default function AdminDashboard() {
         <div className="lg:col-span-3 bg-white rounded-2xl border border-border p-5">
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h2 className="font-semibold text-foreground flex items-center gap-2"><BarChart3 size={16} className="text-primary" /> Doanh thu 2025</h2>
+              <h2 className="font-semibold text-foreground flex items-center gap-2"><BarChart3 size={16} className="text-primary" /> Doanh thu 2026</h2>
               <p className="text-xs text-muted-foreground mt-0.5">Theo tháng (triệu đồng)</p>
             </div>
           </div>

@@ -70,7 +70,7 @@ export default function LoginPage() {
 
         {/* Logo + Content */}
         <div className="relative z-10 text-center flex flex-col items-center">
-          <div className="w-40 h-40 flex items-center justify-center mb-6 transition-all duration-500">
+          <div className="w-28 h-28 flex items-center justify-center mb-6 transition-all duration-500">
             <img src="/logo.png" alt="FSS" className="w-full h-full object-contain hover:scale-110 transition-transform duration-500" />
           </div>
           <h1 className="text-5xl font-bold font-display mb-4 leading-tight">Fashion<br />Shopping Sense</h1>
@@ -108,7 +108,7 @@ export default function LoginPage() {
                 name="email"
                 required
                 autoComplete="email"
-                placeholder="email@example.com"
+                placeholder="Nhập email của bạn"
                 value={formData.email}
                 onChange={handleChange}
                 className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
@@ -133,7 +133,7 @@ export default function LoginPage() {
                   name="password"
                   required
                   autoComplete="current-password"
-                  placeholder="••••••••"
+                  placeholder="Nhập mật khẩu của bạn"
                   value={formData.password}
                   onChange={handleChange}
                   className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"

@@ -15,8 +15,8 @@ export default function BlogPage() {
 
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = activeCategory === 'Tất cả' || post.category === activeCategory;
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -27,17 +27,17 @@ export default function BlogPage() {
       {/* ===== HERO SECTION ===== */}
       <section className="relative pt-20 pb-16 lg:pt-28 lg:pb-24 overflow-hidden bg-slate-50">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
-        
+
         <div className={containerClass}>
           <div className="relative z-10 mb-12">
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-4 block"
             >
-              FSS Editorial
+              BẢN TIN FSS
             </motion.span>
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -45,7 +45,7 @@ export default function BlogPage() {
             >
               Tin tức <span className="text-primary italic">Thời trang</span>
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -56,7 +56,7 @@ export default function BlogPage() {
           </div>
 
           {/* Featured Post Card */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -64,8 +64,8 @@ export default function BlogPage() {
           >
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="relative h-64 lg:h-[500px] overflow-hidden">
-                <img 
-                  src={featuredPost.image} 
+                <img
+                  src={featuredPost.image}
                   alt={featuredPost.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
@@ -110,20 +110,19 @@ export default function BlogPage() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-3 rounded-none text-[12px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
-                    activeCategory === cat 
-                    ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105' 
-                    : 'bg-slate-50 text-muted-foreground hover:bg-slate-100'
-                  }`}
+                  className={`px-6 py-3 rounded-none text-[12px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeCategory === cat
+                      ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105'
+                      : 'bg-slate-50 text-muted-foreground hover:bg-slate-100'
+                    }`}
                 >
                   {cat}
                 </button>
               ))}
             </div>
             <div className="relative group min-w-[300px]">
-              <input 
-                type="text" 
-                placeholder="Tìm kiếm bài viết..."
+              <input
+                type="text"
+                placeholder="Nhập từ khóa tìm kiếm..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-6 py-4 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
@@ -148,8 +147,8 @@ export default function BlogPage() {
                   className="group flex flex-col"
                 >
                   <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 shadow-soft group-hover:shadow-elevation transition-all duration-500">
-                    <img 
-                      src={post.image} 
+                    <img
+                      src={post.image}
                       alt={post.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
@@ -181,8 +180,8 @@ export default function BlogPage() {
               <Search size={48} className="mx-auto text-slate-300 mb-6" />
               <h3 className="text-2xl font-bold text-headline mb-2">Không tìm thấy bài viết</h3>
               <p className="text-muted-foreground">Thử tìm kiếm với từ khóa khác nhé!</p>
-              <button 
-                onClick={() => {setSearchQuery(''); setActiveCategory('Tất cả');}}
+              <button
+                onClick={() => { setSearchQuery(''); setActiveCategory('Tất cả'); }}
                 className="mt-8 px-8 py-3 bg-white border border-slate-200 rounded-none font-bold text-sm hover:bg-slate-50 transition-all"
               >
                 Xóa tất cả bộ lọc

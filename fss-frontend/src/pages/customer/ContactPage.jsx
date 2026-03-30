@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, MessageSquare, ChevronDown, Share } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageSquare, ChevronDown, Share, ArrowRight } from 'lucide-react';
 import { contactInfo } from '../../data/mockData';
 
 const containerClass = 'layout-page';
 
 const InstagramIcon = ({ size, className }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
 );
 
 const FacebookIcon = ({ size, className }) => (
@@ -43,17 +43,17 @@ export default function ContactPage() {
       {/* ===== HERO SECTION ===== */}
       <section className="relative pt-20 pb-16 lg:pt-28 lg:pb-24 overflow-hidden bg-slate-50">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
-        
+
         <div className={containerClass}>
           <div className="relative z-10 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-4 block"
             >
               Liên hệ chúng tôi
             </motion.span>
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -61,7 +61,7 @@ export default function ContactPage() {
             >
               Liên hệ <span className="text-primary italic">ngay</span>
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -82,37 +82,37 @@ export default function ContactPage() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-10"
+              className="space-y-10 lg:pt-20"
             >
               <div>
                 <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-6">Thông tin liên hệ</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex items-start gap-4 rounded-none border border-slate-100 bg-surface-secondary p-5 shadow-sm">
-                    <div className="w-12 h-12 rounded-none bg-accent-soft flex items-center justify-center text-primary">
+                  <div className="flex items-center gap-4 rounded-none border border-slate-100 bg-surface-secondary p-5 shadow-sm">
+                    <div className="w-12 h-12 rounded-none bg-accent-soft flex items-center justify-center text-primary shrink-0">
                       <MapPin size={22} />
                     </div>
-                    <div className="pt-1">
+                    <div>
                       <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Địa chỉ</p>
                       <p className="text-headline font-bold text-sm leading-snug">{contactInfo.address}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 rounded-none border border-slate-100 bg-surface-secondary p-5 shadow-sm">
-                    <div className="w-12 h-12 rounded-none bg-accent-soft flex items-center justify-center text-primary">
+                  <div className="flex items-center gap-4 rounded-none border border-slate-100 bg-surface-secondary p-5 shadow-sm">
+                    <div className="w-12 h-12 rounded-none bg-accent-soft flex items-center justify-center text-primary shrink-0">
                       <Phone size={22} />
                     </div>
-                    <div className="pt-1">
+                    <div>
                       <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Hotline</p>
                       <p className="text-headline font-bold text-sm leading-snug">{contactInfo.phone}</p>
                       <p className="text-muted-foreground text-xs mt-1">{contactInfo.workingHours}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 rounded-none border border-slate-100 bg-surface-secondary p-5 shadow-sm sm:col-span-2">
-                    <div className="w-12 h-12 rounded-none bg-accent-soft flex items-center justify-center text-primary">
+                  <div className="flex items-center gap-4 rounded-none border border-slate-100 bg-surface-secondary p-5 shadow-sm sm:col-span-2">
+                    <div className="w-12 h-12 rounded-none bg-accent-soft flex items-center justify-center text-primary shrink-0">
                       <Mail size={22} />
                     </div>
-                    <div className="pt-1">
+                    <div>
                       <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Email</p>
                       <p className="text-headline font-bold text-sm leading-snug">{contactInfo.email}</p>
                     </div>
@@ -121,7 +121,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-6">Theo dõi chúng tôi</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-10">Theo dõi chúng tôi</h3>
                 <div className="flex items-center gap-4">
                   <a href="#" className="w-12 h-12 rounded-none border border-slate-100 flex items-center justify-center text-muted-foreground hover:bg-primary hover:border-primary hover:text-white transition-all shadow-sm">
                     <FacebookIcon size={20} />
@@ -150,7 +150,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-2xl font-bold text-headline mb-2">Đã gửi tin nhắn!</h3>
                   <p className="text-muted-foreground mb-8">Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất có thể.</p>
-                  <button 
+                  <button
                     onClick={() => setSubmitted(false)}
                     className="px-8 py-3 bg-primary text-white font-bold rounded-none hover:bg-secondary transition-all"
                   >
@@ -162,54 +162,54 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Họ và tên</label>
-                      <input 
+                      <input
                         required
-                        type="text" 
+                        type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full px-6 py-4 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
-                        placeholder="Nguyễn Văn A"
+                        placeholder="Nhập họ và tên của bạn"
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Email</label>
-                      <input 
+                      <input
                         required
-                        type="email" 
+                        type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
                         className="w-full px-6 py-4 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
-                        placeholder="example@fss.vn"
+                        placeholder="Nhập email của bạn"
                       />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Chủ đề</label>
-                    <input 
+                    <input
                       required
-                      type="text" 
+                      type="text"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
                       className="w-full px-6 py-4 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
-                      placeholder="Góp ý về sản phẩm..."
+                      placeholder="Nhập chủ đề của bạn"
                     />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Tin nhắn</label>
-                    <textarea 
+                    <textarea
                       required
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       rows={6}
                       className="w-full px-6 py-4 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none resize-none"
-                      placeholder="Lời nhắn của bạn..."
+                      placeholder="Nhập nội dung tin nhắn của bạn"
                     />
                   </div>
-                  <button 
+                  <button
                     disabled={isSubmitting}
                     className="w-full py-5 bg-primary text-white font-black text-[13px] uppercase tracking-widest rounded-none hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
@@ -255,68 +255,91 @@ export default function ContactPage() {
       </section>
 
       {/* ===== FAQ SECTION ===== */}
-      <section className="py-20 lg:py-32 bg-slate-50">
+      <section className="pt-24 pb-48 lg:pt-32 lg:pb-72 bg-slate-50">
         <div className={containerClass}>
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold font-display text-headline mb-4">Câu hỏi thường gặp</h2>
+            <h2 className="text-2xl lg:text-4xl font-black font-display text-headline mb-4 tracking-tight">Câu hỏi thường gặp</h2>
             <p className="text-muted-foreground">Giải đáp nhanh các thắc mắc phổ biến của bạn.</p>
           </div>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {contactInfo.faq.map((item, index) => (
-              <div 
-                key={index}
-                className="bg-white !rounded-none border border-slate-100 shadow-none transition-all"
-              >
-                <button
-                  onClick={() => setActiveFaq(activeFaq === index ? null : index)}
-                  className="w-full px-8 py-6 flex items-center justify-between text-left group"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
+            {/* FAQ List */}
+            <div className="space-y-4">
+              {contactInfo.faq.map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-white !rounded-none border border-slate-100 shadow-none transition-all"
                 >
-                  <span className="font-bold text-headline group-hover:text-primary transition-colors">{item.q}</span>
-                  <div className={`p-2 rounded-none bg-slate-50 transition-transform duration-300 ${activeFaq === index ? 'rotate-180 bg-primary/10 text-primary' : ''}`}>
-                    <ChevronDown size={18} />
-                  </div>
-                </button>
-                <AnimatePresence>
-                  {activeFaq === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-8 pb-8 pt-2 text-muted-foreground leading-relaxed">
-                        {item.a}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                  <button
+                    onClick={() => setActiveFaq(activeFaq === index ? null : index)}
+                    className="w-full px-10 py-7 flex items-center justify-between text-left group"
+                  >
+                    <span className="font-bold italic text-foreground group-hover:text-primary transition-colors">{item.q}</span>
+                    <div className={`p-2 rounded-none bg-slate-50 transition-transform duration-300 ${activeFaq === index ? 'rotate-180 bg-primary/10 text-primary' : ''}`}>
+                      <ChevronDown size={18} />
+                    </div>
+                  </button>
+                  <AnimatePresence>
+                    {activeFaq === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-8 pb-8 pt-2 text-muted-foreground leading-relaxed">
+                          {item.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
 
-      {/* ===== CHAT CTA ===== */}
-      <section className="py-20">
-        <div className={containerClass}>
-          <div
-            className="bg-gradient-to-r from-primary to-headline !rounded-none p-12 text-center text-white relative overflow-hidden shadow-soft border border-primary/15"
-            style={{ borderRadius: 0 }}
-          >
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-            <div className="relative z-10 flex flex-col items-center">
-              <MessageSquare size={48} className="mb-6 text-primary-300" />
-              <h2 className="text-3xl lg:text-4xl font-bold font-display mb-4">Bạn cần hỗ trợ trực tiếp?</h2>
-              <p className="text-white/60 mb-8 max-w-xl mx-auto">
-                Sử dụng công cụ Visual Search AI hoặc liên hệ với đội ngũ CSKH qua kênh chat để được tư vấn kích cỡ và gợi ý phối đồ ngay lập tức.
-              </p>
-              <button className="px-12 py-5 bg-white text-headline font-black text-[13px] uppercase tracking-widest !rounded-none hover:bg-slate-100 transition-all shadow-soft">
-                Chat với chúng tôi
-              </button>
+            {/* Stretched Multi-color Neon Gradient Newsletter Subscription */}
+            <div className="relative h-full">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.98 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="w-full h-full bg-gradient-to-br from-[#00FFE7] via-[#3EADFF] to-[#8E37FF] p-12 lg:p-20 text-center rounded-[2rem] shadow-2xl flex flex-col items-center justify-center border-none overflow-hidden relative"
+              >
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2),transparent)] pointer-events-none" />
+                <h3 className="text-xl lg:text-3xl font-black font-display text-white mb-6 uppercase tracking-tight leading-tight w-full drop-shadow-sm">
+                  Đăng ký nhận <br /> ưu đãi từ FSS
+                </h3>
+
+                <p className="text-xs lg:text-base text-white/90 font-bold leading-relaxed w-full mb-12 uppercase tracking-widest">
+                  Nhận thông tin sớm nhất về các bộ sưu tập mới.
+                </p>
+
+                <div className="w-full max-w-md space-y-10">
+                  <div className="relative border-b-2 border-white/30 focus-within:border-white transition-colors">
+                    <input
+                      type="email"
+                      placeholder="NHẬP EMAIL CỦA BẠN"
+                      className="w-full bg-transparent px-0 py-6 text-center text-sm lg:text-base font-black text-white outline-none !rounded-none placeholder:text-white/40 tracking-[0.3em]"
+                    />
+                  </div>
+
+                  <button className="w-full inline-flex items-center justify-center gap-4 px-12 py-7 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 rounded-full font-black text-xs lg:text-sm uppercase tracking-[0.3em] group shadow-2xl">
+                    Gửi ngay
+                    <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+                  </button>
+                </div>
+
+                <div className="mt-20 w-full opacity-60 px-4">
+                  <p className="text-[10px] lg:text-[11px] text-white font-bold leading-relaxed uppercase tracking-wider text-center">
+                    Bằng cách nhấp vào nút Đăng ký, bạn đồng ý với <span className="underline cursor-pointer hover:text-white transition-colors">Chính sách bảo mật và cookie</span> của chúng tôi. Vui lòng Đăng nhập khi bạn đã có tài khoản.
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
+
+
     </div>
   );
 }

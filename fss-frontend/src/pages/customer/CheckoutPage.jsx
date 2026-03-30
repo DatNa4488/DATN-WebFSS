@@ -103,9 +103,9 @@ export default function CheckoutPage() {
                   <h2 className="font-semibold text-foreground flex items-center gap-2"><MapPin size={16} className="text-primary" /> Địa chỉ giao hàng</h2>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { label: 'Họ và tên', name: 'name', col: 2, icon: User, placeholder: 'Nguyễn Văn A' },
-                      { label: 'Email', name: 'email', icon: Mail, placeholder: 'example@email.com' },
-                      { label: 'Số điện thoại', name: 'phone', icon: Phone, placeholder: '0901 234 567' },
+                      { label: 'Họ và tên', name: 'name', col: 2, icon: User, placeholder: 'Nhập họ và tên của bạn' },
+                      { label: 'Email', name: 'email', icon: Mail, placeholder: 'Nhập email của bạn' },
+                      { label: 'Số điện thoại', name: 'phone', icon: Phone, placeholder: 'Nhập sđt của bạn' },
                     ].map(({ label, name, col, icon: Icon, placeholder }) => (
                       <div key={name} className={col === 2 ? 'col-span-2' : ''}>
                         <label className="block text-xs font-semibold text-[#374151] mb-3 uppercase tracking-wider">{label}</label>
@@ -129,7 +129,7 @@ export default function CheckoutPage() {
                         name="address"
                         value={form.address}
                         onChange={handleChange}
-                        placeholder="Số nhà, tên đường, phường/xã..."
+                        placeholder="Nhập địa chỉ giao hàng của bạn"
                         className="w-full px-4 py-3.5 border border-border rounded-xl text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-secondary transition-all"
                       />
                     </div>
@@ -140,7 +140,7 @@ export default function CheckoutPage() {
                         name="district"
                         value={form.district}
                         onChange={handleChange}
-                        placeholder="Quận 1"
+                        placeholder="Nhập quận/huyện của bạn"
                         className="w-full px-4 py-3.5 border border-border rounded-xl text-[15px] focus:outline-none focus:border-primary bg-surface-secondary transition-all"
                       />
                     </div>
@@ -164,7 +164,7 @@ export default function CheckoutPage() {
                         value={form.note}
                         onChange={handleChange}
                         rows={2}
-                        placeholder="Ghi chú cho người giao hàng..."
+                        placeholder="Nhập ghi chú của bạn"
                         className="w-full px-4 py-3.5 border border-border rounded-xl text-[15px] focus:outline-none focus:border-primary bg-surface-secondary resize-none transition-all"
                       />
                     </div>

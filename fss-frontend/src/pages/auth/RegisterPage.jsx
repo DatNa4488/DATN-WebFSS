@@ -74,7 +74,7 @@ export default function RegisterPage() {
           ))}
         </div>
         <div className="relative z-10 text-center flex flex-col items-center">
-          <div className="w-32 h-32 flex items-center justify-center mb-4 transition-all duration-500">
+          <div className="w-24 h-24 flex items-center justify-center mb-4 transition-all duration-500">
             <img src="/logo.png" alt="FSS" className="w-full h-full object-contain hover:scale-110 transition-transform duration-500" />
           </div>
           <h1 className="text-4xl font-bold font-display mb-3 leading-tight">Tham gia FSS<br />ngay hôm nay!</h1>
@@ -106,7 +106,7 @@ export default function RegisterPage() {
                 type="text"
                 name="name"
                 required
-                placeholder="Nguyễn Văn A"
+                placeholder="Nhập họ và tên của bạn"
                 value={formData.name}
                 onChange={handleChange}
                 className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
@@ -121,7 +121,7 @@ export default function RegisterPage() {
                 type="email"
                 name="email"
                 required
-                placeholder="email@example.com"
+                placeholder="Nhập email của bạn"
                 value={formData.email}
                 onChange={handleChange}
                 className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
@@ -135,7 +135,7 @@ export default function RegisterPage() {
                 id="reg-phone"
                 type="tel"
                 name="phone"
-                placeholder="0901 234 567"
+                placeholder="Nhập sđt của bạn"
                 value={formData.phone}
                 onChange={handleChange}
                 className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
@@ -151,7 +151,7 @@ export default function RegisterPage() {
                   type={showPassword ? 'text' : 'password'}
                   name="password"
                   required
-                  placeholder="Tối thiểu 8 ký tự"
+                  placeholder="Nhập mật khẩu của bạn"
                   value={formData.password}
                   onChange={handleChange}
                   className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
@@ -184,7 +184,7 @@ export default function RegisterPage() {
                   type="password"
                   name="confirm"
                   required
-                  placeholder="••••••••"
+                  placeholder="Nhập xác nhận mật khẩu của bạn"
                   value={formData.confirm}
                   onChange={handleChange}
                   className={`w-full border-b-2 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none transition-all placeholder:text-slate-200 rounded-none ${passwordMismatch ? 'border-rose-500' : 'border-slate-100 focus:border-primary'

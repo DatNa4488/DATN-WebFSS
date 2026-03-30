@@ -98,7 +98,7 @@ export default function ProductListPage() {
               <input
                 id="product-search"
                 type="text"
-                placeholder="Tìm kiếm sản phẩm..."
+                placeholder="Nhập tên sản phẩm..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="input-premium w-full !pl-14 pr-4 py-3 text-sm rounded-none"
@@ -279,12 +279,12 @@ export default function ProductListPage() {
                 Thử lại với từ khóa khác hoặc điều chỉnh bộ lọc của bạn
               </p>
               <Link
-                to="/visual-search"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-none hover:bg-primary-700 transition-colors shadow-soft"
-              >
-                <Camera size={18} />
-                Tìm kiếm bằng ảnh
-              </Link>
+              to="/products"
+              className="inline-flex items-center gap-4 px-14 py-6 bg-primary text-white font-bold text-sm uppercase tracking-wider rounded-none hover:bg-primary-700 hover:shadow-elevation transition-all group shadow-soft"
+            >
+              Xem tất cả sản phẩm
+              <ArrowRight size={20} strokeWidth={2.5} className="group-hover:translate-x-2 transition-transform" />
+            </Link>
             </motion.div>
           ) : (
             <motion.div

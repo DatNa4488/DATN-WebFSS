@@ -5,6 +5,7 @@ import { Star, ShoppingBag, Heart, Shield, Truck, RefreshCw, Sparkles, Check, Ar
 import { products, reviews as mockReviews, formatPrice } from '../../data/mockData';
 import ProductCard from '../../components/ui/ProductCard';
 import useCartStore from '../../store/cartStore';
+import useAuthStore from '../../store/authStore';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -20,6 +21,8 @@ export default function ProductDetailPage() {
   const [liked, setLiked] = useState(false);
   const [addedFeedback, setAddedFeedback] = useState(false);
   const { addItem, openCart } = useCartStore();
+  const { user } = useAuthStore();
+  const isAdmin = user?.role === 'admin';
 
   const handleAddToCart = () => {
     if (!selectedSize) {
@@ -65,7 +68,7 @@ export default function ProductDetailPage() {
             className="space-y-4"
           >
             {/* Main Image */}
-            <div className="card-elevated rounded-none overflow-hidden sticky top-24">
+            <div className="card-elevated rounded-sm overflow-hidden sticky top-24">
               <div className="aspect-square bg-surface-secondary relative overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.img
@@ -109,7 +112,7 @@ export default function ProductDetailPage() {
                   key={i}
                   whileHover={{ scale: 1.05 }}
                   onClick={() => setImgIdx(i)}
-                  className={`shrink-0 w-24 h-24 rounded-none overflow-hidden border-2 transition-all ${
+                  className={`shrink-0 w-24 h-24 rounded-sm overflow-hidden border-2 transition-all ${
                     i === imgIdx ? 'border-primary shadow-soft' : 'border-border hover:border-primary/50'
                   }`}
                 >
@@ -169,9 +172,9 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            {/* Color Selection */}
-            {product.colors && product.colors.length > 0 && (
-              <div className="card !rounded-none p-6 space-y-4 shadow-none border-slate-100">
+            {/* Color Selection - Ẩn với admin */}
+            {product.colors && product.colors.length > 0 && !isAdmin && (
+              <div className="card !rounded-sm p-6 space-y-4 shadow-none border-slate-100">
                 <label className="text-sm font-bold text-foreground uppercase tracking-wide">
                   Chọn màu
                 </label>
@@ -182,7 +185,7 @@ export default function ProductDetailPage() {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setSelectedColor(i)}
-                      className={`w-12 h-12 rounded-none border-3 transition-all shadow-sm ${
+                      className={`w-12 h-12 rounded-sm border-3 transition-all shadow-sm ${
                         selectedColor === i ? 'border-primary shadow-soft' : 'border-border hover:border-primary/50'
                       }`}
                       style={{ backgroundColor: color }}
@@ -193,8 +196,9 @@ export default function ProductDetailPage() {
               </div>
             )}
 
-            {/* Size Selection */}
-            <div className="card !rounded-none p-6 space-y-4 shadow-none border-slate-100">
+            {/* Size Selection - Ẩn với admin */}
+            {!isAdmin && (
+            <div className="card !rounded-sm p-6 space-y-4 shadow-none border-slate-100">
               <div className="flex items-center justify-between">
                 <label className="text-sm font-bold text-foreground uppercase tracking-wide">
                   Chọn kích cỡ
@@ -210,7 +214,7 @@ export default function ProductDetailPage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setSelectedSize(s)}
-                    className={`py-3 px-2 !rounded-none font-bold text-sm transition-all border-2 leading-none ${
+                    className={`py-3 px-2 !rounded-sm font-bold text-sm transition-all border-2 leading-none ${
                       selectedSize === s
                         ? 'bg-primary text-white border-primary shadow-soft'
                         : 'bg-surface-secondary text-foreground border-border hover:border-primary'
@@ -221,35 +225,39 @@ export default function ProductDetailPage() {
                 ))}
               </div>
             </div>
+            )}
 
-            {/* Quantity */}
-            <div className="card !rounded-none p-6 space-y-4 shadow-none border-slate-100">
+            {/* Quantity - Ẩn với admin */}
+            {!isAdmin && (
+            <div className="card !rounded-sm p-6 space-y-4 shadow-none border-slate-100">
               <label className="text-sm font-bold text-foreground uppercase tracking-wide">
                 Số lượng
               </label>
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => setQty(Math.max(1, qty - 1))}
-                  className="w-10 h-10 !rounded-none border border-border hover:border-primary flex items-center justify-center transition-colors leading-none"
+                  className="w-10 h-10 !rounded-sm border border-border hover:border-primary flex items-center justify-center transition-colors leading-none"
                 >
                   −
                 </button>
                 <span className="text-lg font-bold text-foreground w-8 text-center leading-none">{qty}</span>
                 <button
                   onClick={() => setQty(qty + 1)}
-                  className="w-10 h-10 !rounded-none border border-border hover:border-primary flex items-center justify-center transition-colors leading-none"
+                  className="w-10 h-10 !rounded-sm border border-border hover:border-primary flex items-center justify-center transition-colors leading-none"
                 >
                   +
                 </button>
               </div>
             </div>
+            )}
 
-            {/* Action Buttons */}
+            {/* Action Buttons - Ẩn với admin */}
+            {!isAdmin && (
             <div className="space-y-3 pt-4">
               <motion.button
                 whileTap={{ scale: 0.98 }}
                 onClick={handleAddToCart}
-                className={`w-full py-4 !rounded-none font-bold text-base flex items-center justify-center gap-2 transition-all shadow-soft hover:shadow-lg ${
+                className={`w-full py-4 !rounded-sm font-bold text-base flex items-center justify-center gap-2 transition-all shadow-soft hover:shadow-lg ${
                   addedFeedback
                     ? 'bg-success text-white'
                     : 'bg-primary text-white hover:bg-primary-700 active:scale-95'
@@ -271,11 +279,12 @@ export default function ProductDetailPage() {
               <motion.button
                 whileTap={{ scale: 0.98 }}
                 onClick={handleBuyNow}
-                className="w-full py-4 !rounded-none font-bold text-base border-2 border-primary text-primary hover:bg-primary-50 transition-all"
+                className="w-full py-4 !rounded-sm font-bold text-base border-2 border-primary text-primary hover:bg-primary-50 transition-all"
               >
                 Mua ngay
               </motion.button>
             </div>
+            )}
 
             {/* Benefits */}
             <div className="grid grid-cols-2 gap-4 pt-8 border-t border-border">

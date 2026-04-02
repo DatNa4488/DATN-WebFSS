@@ -1,10 +1,16 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+// Ảnh đại diện mặc định theo vai trò
+export const DEFAULT_AVATARS = {
+  admin: '/admin-pfp.jpg',
+  customer: '/customer-pfp.jpg',
+};
+
 // Tài khoản demo (hiện tại vẫn là mock phía client)
 const DEMO_ACCOUNTS_SEED = [
-  { id: 1, name: 'Nguyễn Văn Đạt', email: 'dat@example.com', password: '123456', role: 'customer', avatar: 'https://i.pravatar.cc/150?img=1' },
-  { id: 2, name: 'Admin FSS', email: 'admin@fss.vn', password: 'admin123', role: 'admin', avatar: 'https://i.pravatar.cc/150?img=3' },
+  { id: 1, name: 'Nguyễn Văn Đạt', email: 'dat@example.com', password: '123456', role: 'customer', avatar: DEFAULT_AVATARS.customer },
+  { id: 2, name: 'Admin FSS', email: 'admin@fss.vn', password: 'admin123', role: 'admin', avatar: DEFAULT_AVATARS.admin },
 ];
 
 const useAuthStore = create(
@@ -44,7 +50,7 @@ const useAuthStore = create(
           name,
           email,
           role: 'customer',
-          avatar: `https://i.pravatar.cc/150?img=${nextId + 10}`,
+          avatar: DEFAULT_AVATARS.customer,
         };
 
         const nextAccount = { ...newUser, password };
@@ -62,10 +68,45 @@ const useAuthStore = create(
       clearError: () => set({ authError: null }),
 
       updateProfile: (data) =>
-        set((state) => ({ user: { ...state.user, ...data } })),
+        set((state) => ({
+          user: { ...state.user, ...data },
+          accounts: state.accounts.map((a) =>
+            a.id === state.user?.id ? { ...a, ...data } : a
+          ),
+        })),
+
+      // Cập nhật ảnh đại diện - lưu base64 hoặc URL vào cả user và accounts
+      updateAvatar: (avatarDataUrl) =>
+        set((state) => ({
+          user: { ...state.user, avatar: avatarDataUrl },
+          accounts: state.accounts.map((a) =>
+            a.id === state.user?.id ? { ...a, avatar: avatarDataUrl } : a
+          ),
+        })),
     }),
     {
       name: 'fss-auth',
+      version: 2, // tăng version để trigger migration, cập nhật avatar theo role
+      migrate: (persistedState) => {
+        // Cập nhật avatar đúng theo role cho tất cả tài khoản đã lưu
+        const fixAvatar = (acc) => ({
+          ...acc,
+          avatar: DEFAULT_AVATARS[acc.role] ?? DEFAULT_AVATARS.customer,
+        });
+
+        const fixedAccounts = (persistedState.accounts ?? []).map(fixAvatar);
+
+        // Nếu user đang đăng nhập, cũng cập nhật avatar của họ
+        const fixedUser = persistedState.user
+          ? fixAvatar(persistedState.user)
+          : null;
+
+        return {
+          ...persistedState,
+          accounts: fixedAccounts,
+          user: fixedUser,
+        };
+      },
       partialize: (state) => ({
         accounts: state.accounts,
         user: state.user,

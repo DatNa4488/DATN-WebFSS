@@ -150,34 +150,45 @@ export default function AdminProducts() {
       {/* Table */}
       <div className="bg-white rounded-2xl border border-border overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm min-w-[700px]">
             <thead className="bg-surface-secondary border-b border-border">
               <tr>
-                {['Sản phẩm', 'Danh mục', 'Giá', 'Tồn kho', 'Đã bán', 'Tags', 'Thao tác'].map((h) => (
-                  <th key={h} className="text-left text-xs font-semibold text-muted px-4 py-3">{h}</th>
-                ))}
+                <th className="text-left text-xs font-semibold text-muted px-4 py-3 w-[260px]">Sản phẩm</th>
+                <th className="text-left text-xs font-semibold text-muted px-4 py-3">Danh mục</th>
+                <th className="text-left text-xs font-semibold text-muted px-4 py-3">Giá</th>
+                <th className="text-left text-xs font-semibold text-muted px-4 py-3">Tồn kho</th>
+                <th className="text-left text-xs font-semibold text-muted px-4 py-3">Đã bán</th>
+                <th className="text-left text-xs font-semibold text-muted px-4 py-3">Tags</th>
+                <th className="text-left text-xs font-semibold text-muted px-4 py-3">Thao tác</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {filtered.map((p) => (
                 <motion.tr key={p.id} layout className="hover:bg-surface-secondary transition-colors">
                   <td className="px-4 py-3">
-                    <div className="flex items-center gap-2.5">
-                      <img src={p.images[0]} alt={p.name} className="w-10 h-12 object-cover rounded-lg" />
-                      <div>
-                        <p className="font-semibold text-xs text-foreground line-clamp-1">{p.name}</p>
-                        <p className="text-[11px] text-muted-foreground">ID: {p.id}</p>
+                    <div className="flex items-center gap-3">
+                      <div className="w-14 h-18 shrink-0 rounded-xl overflow-hidden border border-border bg-surface-secondary" style={{height: '72px', width: '56px'}}>
+                        <img
+                          src={p.images[0]}
+                          alt={p.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => { e.target.src = 'https://placehold.co/56x72/f1f5f9/94a3b8?text=No+img'; }}
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-semibold text-xs text-foreground line-clamp-2 leading-tight">{p.name}</p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5">ID: {p.id}</p>
                       </div>
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <span className="text-xs bg-accent-soft text-primary px-2 py-0.5 rounded-full font-medium">
+                    <span className="text-xs bg-accent-soft text-primary px-2 py-0.5 rounded-full font-medium whitespace-nowrap">
                       {categories.find(c => c.id === p.category)?.name || p.category}
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <p className="text-xs font-bold text-primary">{formatPrice(p.price)}</p>
-                    {p.discount > 0 && <p className="text-[11px] text-muted-foreground line-through">{formatPrice(p.originalPrice)}</p>}
+                    <p className="text-xs font-bold text-primary whitespace-nowrap">{formatPrice(p.price)}</p>
+                    {p.discount > 0 && <p className="text-[11px] text-muted-foreground line-through whitespace-nowrap">{formatPrice(p.originalPrice)}</p>}
                   </td>
                   <td className="px-4 py-3">
                     <span className={`text-xs font-medium ${p.stock < 10 ? 'text-red-500' : 'text-[#374151]'}`}>{p.stock}</span>
@@ -186,7 +197,7 @@ export default function AdminProducts() {
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap gap-1">
                       {p.tags.slice(0, 2).map((t) => (
-                        <span key={t} className="text-[10px] bg-slate-100 text-muted px-1.5 py-0.5 rounded">#{t}</span>
+                        <span key={t} className="text-[10px] bg-slate-100 text-muted px-1.5 py-0.5 rounded whitespace-nowrap">#{t}</span>
                       ))}
                     </div>
                   </td>

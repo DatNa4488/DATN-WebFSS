@@ -109,7 +109,7 @@ export default function RegisterPage() {
                 placeholder="Nhập họ và tên của bạn"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
+                className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-sm"
               />
             </div>
 
@@ -124,7 +124,7 @@ export default function RegisterPage() {
                 placeholder="Nhập email của bạn"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
+                className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-sm"
               />
             </div>
 
@@ -138,7 +138,7 @@ export default function RegisterPage() {
                 placeholder="Nhập sđt của bạn"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
+                className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-sm"
               />
             </div>
 
@@ -154,7 +154,7 @@ export default function RegisterPage() {
                   placeholder="Nhập mật khẩu của bạn"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
+                  className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-sm"
                 />
                 <button
                   type="button"
@@ -187,7 +187,7 @@ export default function RegisterPage() {
                   placeholder="Nhập xác nhận mật khẩu của bạn"
                   value={formData.confirm}
                   onChange={handleChange}
-                  className={`w-full border-b-2 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none transition-all placeholder:text-slate-200 rounded-none ${passwordMismatch ? 'border-rose-500' : 'border-slate-100 focus:border-primary'
+                  className={`w-full border-b-2 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none transition-all placeholder:text-slate-200 rounded-sm ${passwordMismatch ? 'border-rose-500' : 'border-slate-100 focus:border-primary'
                     }`}
                 />
               </div>
@@ -204,7 +204,7 @@ export default function RegisterPage() {
                   type="checkbox"
                   checked={agreed}
                   onChange={(e) => setAgreed(e.target.checked)}
-                  className="w-4 h-4 rounded-none border-2 border-slate-200 appearance-none checked:bg-primary checked:border-primary transition-all cursor-pointer"
+                  className="w-4 h-4 rounded-sm border-2 border-slate-200 appearance-none checked:bg-primary checked:border-primary transition-all cursor-pointer"
                 />
                 {agreed && <Check size={12} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white pointer-events-none" />}
               </div>
@@ -226,7 +226,7 @@ export default function RegisterPage() {
               id="register-submit-btn"
               type="submit"
               disabled={loading || !agreed || passwordMismatch}
-              className="w-full py-4.5 bg-primary text-white text-[11px] font-black uppercase tracking-[0.2em] rounded-none hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 mt-10 disabled:opacity-50 disabled:bg-slate-400 disabled:shadow-none"
+              className="w-full py-4.5 bg-primary text-white text-[11px] font-black uppercase tracking-[0.2em] rounded-sm hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 mt-10 disabled:opacity-50 disabled:bg-slate-400 disabled:shadow-none"
             >
               {loading ? (
                 <><span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> ĐANG XỬ LÝ...</>

@@ -101,7 +101,7 @@ export default function ProductListPage() {
                 placeholder="Nhập tên sản phẩm..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="input-premium w-full !pl-14 pr-4 py-3 text-sm rounded-none"
+                className="input-premium w-full !pl-14 pr-4 py-3 text-sm rounded-sm"
               />
             </div>
 
@@ -113,7 +113,7 @@ export default function ProductListPage() {
                   id="sort-select"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="input-premium pl-4 pr-10 py-3 text-sm appearance-none cursor-pointer rounded-none bg-white w-full"
+                  className="input-premium pl-4 pr-10 py-3 text-sm appearance-none cursor-pointer rounded-sm bg-white w-full"
                 >
                   {sortOptions.map((o) => (
                     <option key={o.value} value={o.value}>{o.label}</option>
@@ -128,7 +128,7 @@ export default function ProductListPage() {
                 whileTap={{ scale: 0.98 }}
                 id="filter-btn"
                 onClick={() => setShowFilters(!showFilters)}
-                className={`flex items-center justify-center gap-2 px-5 py-3 rounded-none font-semibold text-sm transition-all whitespace-nowrap ${
+                className={`flex items-center justify-center gap-2 px-5 py-3 rounded-sm font-semibold text-sm transition-all whitespace-nowrap ${
                   showFilters
                     ? 'bg-primary text-white shadow-soft'
                     : 'bg-surface-secondary text-foreground border border-border hover:border-primary'
@@ -141,7 +141,7 @@ export default function ProductListPage() {
               {/* Visual Search */}
               <Link
                 to="/visual-search"
-                className="flex items-center justify-center gap-2 px-5 py-3 bg-primary-50 text-primary rounded-none text-sm font-semibold hover:bg-primary-100 transition-colors border border-primary-200 whitespace-nowrap"
+                className="flex items-center justify-center gap-2 px-5 py-3 bg-primary-50 text-primary rounded-sm text-sm font-semibold hover:bg-primary-100 transition-colors border border-primary-200 whitespace-nowrap"
               >
                 <Camera size={16} strokeWidth={2} />
                 <span className="hidden sm:inline">Tìm ảnh</span>
@@ -207,7 +207,7 @@ export default function ProductListPage() {
                       <button
                         key={s}
                         onClick={() => toggleSize(s)}
-                        className={`px-3 py-2 text-xs font-semibold rounded-none border transition-all ${
+                        className={`px-3 py-2 text-xs font-semibold rounded-sm border transition-all ${
                           selectedSizes.includes(s)
                             ? 'bg-primary text-white border-primary shadow-soft'
                             : 'border-border text-foreground hover:border-primary hover:text-primary'
@@ -224,7 +224,7 @@ export default function ProductListPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => { setPriceRange(0); setSelectedSizes([]); setSearch(''); }}
-                  className="w-full py-3 text-sm font-semibold text-error bg-error-light border-2 border-error-light rounded-none hover:bg-error/10 transition-all"
+                  className="w-full py-3 text-sm font-semibold text-error bg-error-light border-2 border-error-light rounded-sm hover:bg-error/10 transition-all"
                 >
                   ✕ Xóa tất cả bộ lọc
                 </motion.button>

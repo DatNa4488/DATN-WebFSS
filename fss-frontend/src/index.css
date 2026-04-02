@@ -203,8 +203,8 @@ textarea {
   pointer-events: none;
 }
 
-/* Allow Tailwind rounded-none to override card-premium radius */
-.card-premium.rounded-none {
+/* Allow Tailwind rounded-sm to override card-premium radius */
+.card-premium.rounded-sm {
   border-radius: 0 !important;
 }
 

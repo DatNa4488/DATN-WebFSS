@@ -2,7 +2,7 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   LayoutDashboard, Package, ShoppingCart, Users,
-  LogOut, ChevronRight, Bell, Settings
+  LogOut, ChevronRight, Bell
 } from 'lucide-react';
 import useAuthStore from '../../store/authStore';
 
@@ -20,7 +20,7 @@ export default function AdminLayout() {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate('/login');
   };
 
   return (
@@ -76,9 +76,6 @@ export default function AdminLayout() {
 
         {/* Bottom actions */}
         <div className="p-3 border-t border-white/10 space-y-1">
-          <button className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm text-white/70 hover:bg-white/10 hover:text-white transition-colors">
-            <Settings size={18} /> Cài đặt
-          </button>
           <button
             onClick={handleLogout}
             id="admin-logout-btn"

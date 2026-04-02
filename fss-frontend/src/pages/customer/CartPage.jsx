@@ -3,10 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Trash2, Plus, Minus, ArrowRight, ShoppingCart, ShieldCheck, Truck } from 'lucide-react';
 import useCartStore from '../../store/cartStore';
 import { formatPrice } from '../../data/mockData';
+import useAuthStore from '../../store/authStore';
 
 export default function CartPage() {
   const { items, removeItem, updateQty, clearCart } = useCartStore();
   const navigate = useNavigate();
+  const { user } = useAuthStore();
+  const isAdmin = user?.role === 'admin';
 
   const subtotal = items.reduce((sum, i) => sum + i.price * i.qty, 0);
   const shipping = subtotal >= 500000 ? 0 : 35000;
@@ -15,7 +18,7 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-surface-secondary flex items-center justify-center page-enter pb-20 pt-24">
-        <div className="text-center max-w-md px-6 py-12 bg-white border border-border rounded-none shadow-soft">
+        <div className="text-center max-w-md px-6 py-12 bg-white border border-border rounded-sm shadow-soft">
  
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -35,7 +38,7 @@ export default function CartPage() {
           >
             <Link
               to="/products"
-              className="inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-primary to-primary-700 text-white font-bold text-sm uppercase tracking-wider rounded-none hover:shadow-elevation transition-all shadow-soft group"
+              className="inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-primary to-primary-700 text-white font-bold text-sm uppercase tracking-wider rounded-sm hover:shadow-elevation transition-all shadow-soft group"
             >
               Khám phá sản phẩm
               <ArrowRight size={20} strokeWidth={2.5} className="group-hover:translate-x-2 transition-transform" />
@@ -62,7 +65,7 @@ export default function CartPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={clearCart}
-              className="w-fit px-6 py-3 text-sm font-bold text-red-500 bg-red-50 hover:bg-red-100 uppercase tracking-wider rounded-none transition-all border border-red-200 flex items-center gap-2 justify-center lg:justify-start"
+              className="w-fit px-6 py-3 text-sm font-bold text-red-500 bg-red-50 hover:bg-red-100 uppercase tracking-wider rounded-sm transition-all border border-red-200 flex items-center gap-2 justify-center lg:justify-start"
             >
               <Trash2 size={16} /> Xóa tất cả
             </motion.button>
@@ -75,7 +78,7 @@ export default function CartPage() {
           
           {/* ITEMS LIST - 8 cols */}
           <div className="lg:col-span-8 space-y-4">
-            <div className="bg-white border border-slate-200 rounded-none shadow-none overflow-hidden">
+            <div className="bg-white border border-slate-200 rounded-sm shadow-none overflow-hidden">
                <div className="grid grid-cols-12 px-8 py-4 border-b border-[#F1F5F9] text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
                   <div className="col-span-6">Sản phẩm</div>
                   <div className="col-span-2 text-center">Số lượng</div>
@@ -94,7 +97,7 @@ export default function CartPage() {
                    >
                      {/* Product Details */}
                      <div className="col-span-6 flex gap-6">
-                      <Link to={`/products/${item.product.id}`} className="shrink-0 w-20 h-28 bg-[#F8FAFC] border border-slate-200 rounded-none overflow-hidden">
+                      <Link to={`/products/${item.product.id}`} className="shrink-0 w-20 h-28 bg-[#F8FAFC] border border-slate-200 rounded-sm overflow-hidden">
                          <img
                            src={item.product.images[0]}
                            alt={item.product.name}
@@ -116,7 +119,7 @@ export default function CartPage() {
 
                      {/* Qty Controls */}
                      <div className="col-span-2 flex justify-center">
-                        <div className="flex items-center border border-slate-200 bg-white rounded-none overflow-hidden">
+                        <div className="flex items-center border border-slate-200 bg-white rounded-sm overflow-hidden">
                            <button 
                              onClick={() => updateQty(item.key, item.qty - 1)}
                              className="w-10 h-10 flex items-center justify-center text-primary hover:bg-[#F1F5F9] transition-colors"
@@ -142,7 +145,7 @@ export default function CartPage() {
                      <div className="col-span-1 text-right">
                         <button 
                           onClick={() => removeItem(item.key)}
-                          className="p-3 text-muted-foreground hover:text-red-500 hover:bg-red-50 rounded-none transition-all"
+                          className="p-3 text-muted-foreground hover:text-red-500 hover:bg-red-50 rounded-sm transition-all"
                         >
                           <Trash2 size={16} />
                         </button>
@@ -152,7 +155,7 @@ export default function CartPage() {
                </AnimatePresence>
             </div>
             
-            <div className="bg-white border border-slate-200 rounded-none p-6 flex items-center justify-between">
+            <div className="bg-white border border-slate-200 rounded-sm p-6 flex items-center justify-between">
                <div className="flex items-center gap-6">
                   <div className="flex items-center gap-2 text-tertiary">
                      <ShieldCheck size={18} />
@@ -171,12 +174,12 @@ export default function CartPage() {
 
           {/* SUMMARY - 4 cols */}
           <div className="lg:col-span-4">
-            <div className="bg-primary text-white rounded-none p-10 sticky top-32 shadow-2xl shadow-primary/20">
+            <div className="bg-primary text-white rounded-sm p-10 sticky top-32 shadow-2xl shadow-primary/20">
                <h2 className="text-xl font-bold font-display uppercase tracking-widest mb-10 border-b border-white/20 pb-6">Đơn hàng</h2>
 
                <div className="space-y-8">
                   {/* Summary Box */}
-                  <div className="bg-white border border-border rounded-none overflow-hidden shadow-none">
+                  <div className="bg-white border border-border rounded-sm overflow-hidden shadow-none">
                     <div className="bg-gradient-to-r from-primary-50 to-primary-100/50 p-6 border-b border-border">
                       <h3 className="text-lg font-bold text-foreground">Chi tiết đơn hàng</h3>
                     </div>
@@ -198,7 +201,7 @@ export default function CartPage() {
                         <motion.div
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="p-4 bg-warning-light border border-warning-light rounded-none text-center"
+                          className="p-4 bg-warning-light border border-warning-light rounded-sm text-center"
                         >
                           <p className="text-xs font-semibold text-warning leading-relaxed">
                             ⚡ Mua thêm {formatPrice(500000 - subtotal)} → Miễn phí vận chuyển
@@ -211,19 +214,22 @@ export default function CartPage() {
                         <span className="text-3xl font-black bg-gradient-to-r from-primary to-primary-700 bg-clip-text text-transparent">{formatPrice(total)}</span>
                       </div>
 
+                      {/* Nút Thanh toán - Ẩn với admin */}
+                      {!isAdmin && (
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => navigate('/checkout')}
-                        className="w-full py-6 bg-gradient-to-r from-primary to-primary-700 text-white font-bold text-sm uppercase tracking-wider rounded-none hover:shadow-elevation transition-all shadow-soft flex items-center justify-center gap-2"
+                        className="w-full py-6 bg-gradient-to-r from-primary to-primary-700 text-white font-bold text-sm uppercase tracking-wider rounded-sm hover:shadow-elevation transition-all shadow-soft flex items-center justify-center gap-2"
                       >
                         <ShoppingBag size={18} />
                         Tiến hành thanh toán
                       </motion.button>
+                      )}
 
                       <Link
                         to="/products"
-                        className="block w-full py-4 border-2 border-border text-foreground font-bold text-sm uppercase tracking-wider rounded-none hover:bg-surface-secondary transition-all text-center"
+                        className="block w-full py-4 border-2 border-border text-foreground font-bold text-sm uppercase tracking-wider rounded-sm hover:bg-surface-secondary transition-all text-center"
                       >
                         Tiếp tục mua sắm
                       </Link>
@@ -231,15 +237,15 @@ export default function CartPage() {
                   </div>
                   
                   {/* Promotion Input */}
-                  <div className="bg-white border border-border rounded-none p-6 shadow-none">
+                  <div className="bg-white border border-border rounded-sm p-6 shadow-none">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-4 text-center">🎟️ Có mã ưu đãi?</p>
                     <div className="flex gap-3">
                       <input 
                         type="text" 
                         placeholder="Nhập mã ưu đãi của bạn..."
-                        className="flex-1 bg-surface-secondary border border-border rounded-none px-4 py-3 text-sm font-medium focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
+                        className="flex-1 bg-surface-secondary border border-border rounded-sm px-4 py-3 text-sm font-medium focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
                       />
-                      <button className="px-6 py-3 bg-primary text-white text-sm font-bold uppercase rounded-none hover:bg-primary-700 transition-all shadow-soft whitespace-nowrap">Áp dụng</button>
+                      <button className="px-6 py-3 bg-primary text-white text-sm font-bold uppercase rounded-sm hover:bg-primary-700 transition-all shadow-soft whitespace-nowrap">Áp dụng</button>
                     </div>
                   </div>
                </div>

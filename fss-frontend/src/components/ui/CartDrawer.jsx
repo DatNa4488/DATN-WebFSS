@@ -3,9 +3,12 @@ import { X, ShoppingBag, Trash2, Plus, Minus, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import useCartStore from '../../store/cartStore';
 import { formatPrice } from '../../data/mockData';
+import useAuthStore from '../../store/authStore';
 
 export default function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQty } = useCartStore();
+  const { user } = useAuthStore();
+  const isAdmin = user?.role === 'admin';
   const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
   const shipping = subtotal >= 500000 ? 0 : 35000;
   const total = subtotal + shipping;
@@ -28,24 +31,25 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-            className="fixed right-0 top-0 h-full w-full max-w-sm bg-white z-[70] flex flex-col shadow-elevation"
+            className="fixed right-0 top-0 h-full w-full max-w-[440px] bg-white z-[70] flex flex-col shadow-2xl border-l border-slate-100"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-5 border-b border-border bg-surface-secondary">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-border bg-white">
               <div className="flex items-center gap-3">
-                <div>
-                  <span className="font-bold text-foreground block text-sm">Giỏ hàng</span>
+                <ShoppingBag size={20} className="text-primary" />
+                <div className="flex flex-col justify-center">
+                  <span className="font-black text-foreground block text-lg leading-normal tracking-tight pt-1">GIỎ HÀNG</span>
                   {items.length > 0 && (
-                    <span className="text-xs text-muted-foreground">{items.reduce((s, i) => s + i.qty, 0)} sản phẩm</span>
+                    <span className="text-xs font-semibold text-muted-foreground leading-none">{items.length} sản phẩm</span>
                   )}
                 </div>
               </div>
               <motion.button
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={closeCart}
                 id="close-cart-btn"
-                className="p-2 rounded-none hover:bg-white text-muted-foreground transition-colors"
+                className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-primary transition-all"
                 aria-label="Close cart"
               >
                 <X size={20} strokeWidth={2.5} />
@@ -53,13 +57,22 @@ export default function CartDrawer() {
             </div>
 
             {/* Items */}
-            <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col space-y-3">
+            <div className="flex-1 overflow-y-auto px-6 py-5 flex flex-col space-y-4">
               {items.length === 0 ? (
-                <div className="flex-1 flex flex-col items-center justify-center text-center py-16">
-                  <p className="font-semibold text-foreground mb-1">Giỏ hàng trống</p>
-                  <p className="text-sm text-muted mb-4">Hãy thêm sản phẩm yêu thích!</p>
-                  <Link to="/products" onClick={closeCart} className="text-sm text-primary font-semibold hover:underline">
-                    Khám phá sản phẩm →
+                <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
+                  <div className="w-24 h-24 bg-primary/5 rounded-full flex items-center justify-center mb-6">
+                    <ShoppingBag size={40} className="text-primary/40" />
+                  </div>
+                  <h3 className="font-bold text-xl text-foreground mb-2">Giỏ hàng của bạn đang trống</h3>
+                  <p className="text-sm text-muted-foreground mb-8 max-w-[250px]">
+                    Có vẻ như bạn chưa có sản phẩm nào trong giỏ hàng. Hãy lấp đầy nó nhé!
+                  </p>
+                  <Link 
+                    to="/products" 
+                    onClick={closeCart} 
+                    className="flex justify-center w-full px-6 py-3.5 bg-primary text-white text-[13px] font-black uppercase tracking-wider rounded-sm hover:bg-primary-700 transition-colors shadow-lg shadow-primary/20 hover:scale-[1.02]"
+                  >
+                    MUA SẮM NGAY
                   </Link>
                 </div>
               ) : (
@@ -71,34 +84,35 @@ export default function CartDrawer() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 20, height: 0 }}
-                      className="flex gap-3"
+                      className="flex gap-4 p-4 border border-slate-100 rounded-lg hover:border-primary/20 hover:shadow-sm transition-all"
                     >
-                      <Link to={`/products/${item.product.id}`} onClick={closeCart}>
+                      <Link to={`/products/${item.product.id}`} onClick={closeCart} className="shrink-0">
                         <img
                           src={item.product.images[0]}
                           alt={item.product.name}
-                          className="w-16 h-20 object-cover rounded-none border border-border"
+                          className="w-20 h-24 object-cover rounded-md bg-slate-50"
                         />
                       </Link>
-                      <div className="flex-1 min-w-0">
-                        <Link to={`/products/${item.product.id}`} onClick={closeCart} className="text-sm font-semibold text-foreground hover:text-primary line-clamp-1">
-                          {item.product.name}
-                        </Link>
-                        <p className="text-xs text-muted-foreground mt-0.5">{item.size} · {item.color}</p>
-                        <p className="text-sm font-bold text-primary mt-1">{formatPrice(item.price)}</p>
-                        <div className="flex items-center justify-between mt-2">
-                          <div className="flex items-center border border-border rounded-none overflow-hidden">
-                            <button onClick={() => updateQty(item.key, item.qty - 1)} className="w-7 h-7 flex items-center justify-center hover:bg-[#F5F5F5] transition-colors">
-                              <Minus size={11} />
-                            </button>
-                            <span className="w-7 text-center text-xs font-semibold">{item.qty}</span>
-                            <button onClick={() => updateQty(item.key, item.qty + 1)} className="w-7 h-7 flex items-center justify-center hover:bg-[#F5F5F5] transition-colors">
-                              <Plus size={11} />
-                            </button>
-                          </div>
-                          <button onClick={() => removeItem(item.key)} className="p-1 text-[#D1D5DB] hover:text-red-400 transition-colors">
-                            <Trash2 size={14} />
+                      <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
+                        <div className="flex justify-between items-start gap-2">
+                          <Link to={`/products/${item.product.id}`} onClick={closeCart} className="text-sm font-bold text-foreground hover:text-primary line-clamp-2 leading-tight">
+                            {item.product.name}
+                          </Link>
+                          <button onClick={() => removeItem(item.key)} className="text-slate-400 hover:text-red-500 transition-colors p-1 -mr-1 -mt-1 rounded-sm hover:bg-red-50 shrink-0">
+                            <Trash2 size={16} />
                           </button>
+                        </div>
+                        <div className="flex mt-1">
+                          <span className="text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-sm">{item.size} · {item.color}</span>
+                        </div>
+                        
+                        <div className="flex items-center justify-between mt-auto pt-2">
+                          <p className="text-[15px] font-black text-primary">{formatPrice(item.price)}</p>
+                          <div className="flex items-center border border-slate-200 rounded-sm bg-slate-50">
+                            <button onClick={() => updateQty(item.key, item.qty - 1)} className="w-7 h-7 flex items-center justify-center hover:bg-slate-200 transition-colors rounded-l-sm"><Minus size={12} /></button>
+                            <span className="w-8 text-center text-xs font-bold">{item.qty}</span>
+                            <button onClick={() => updateQty(item.key, item.qty + 1)} className="w-7 h-7 flex items-center justify-center hover:bg-slate-200 transition-colors rounded-r-sm"><Plus size={12} /></button>
+                          </div>
                         </div>
                       </div>
                     </motion.div>
@@ -109,47 +123,54 @@ export default function CartDrawer() {
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="border-t border-border px-5 py-5 space-y-4 bg-surface-secondary/50">
-                <div className="space-y-2.5 pb-3 border-b border-border">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground font-medium">Tạm tính:</span>
+              <div className="border-t border-slate-100 px-6 py-6 space-y-5 bg-white shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.05)]">
+                <div className="space-y-3">
+                  <div className="flex justify-between text-[13px]">
+                    <span className="text-slate-500 font-semibold uppercase tracking-wider">Tạm tính</span>
                     <span className="font-bold text-foreground">{formatPrice(subtotal)}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground font-medium">Vận chuyển:</span>
-                    <span className={`font-bold ${shipping === 0 ? 'text-success' : 'text-foreground'}`}>
-                      {shipping === 0 ? '✓ Miễn phí' : formatPrice(shipping)}
+                  <div className="flex justify-between text-[13px]">
+                    <span className="text-slate-500 font-semibold uppercase tracking-wider">Vận chuyển</span>
+                    <span className={`font-bold ${shipping === 0 ? 'text-green-600' : 'text-foreground'}`}>
+                      {shipping === 0 ? 'Miễn phí' : formatPrice(shipping)}
                     </span>
                   </div>
                 </div>
-                
-                <div className="bg-white rounded-none p-3 border border-border">
-                  <div className="flex justify-between items-center">
-                    <span className="font-semibold text-foreground">Tổng cộng:</span>
-                    <span className="text-xl font-black text-primary">{formatPrice(total)}</span>
-                  </div>
-                </div>
 
-                {shipping > 0 && (
-                  <p className="text-xs text-amber-700 bg-amber-50 px-3 py-2 rounded-none text-center font-medium border border-amber-200">
-                    Mua thêm {formatPrice(500000 - subtotal)} để miễn phí ship!
+                {shipping > 0 ? (
+                  <p className="text-[11px] font-semibold text-amber-700 bg-amber-50/50 px-3 py-2.5 rounded-sm text-center border border-amber-100 flex items-center justify-center gap-1.5">
+                    Mua thêm <span className="text-amber-800 font-bold">{formatPrice(500000 - subtotal)}</span> để miễn phí ship!
+                  </p>
+                ) : (
+                  <p className="text-[11px] font-semibold text-green-700 bg-green-50/50 px-3 py-2.5 rounded-sm text-center border border-green-100 flex items-center justify-center gap-1.5">
+                    ✨ Đơn hàng đã được miễn phí vận chuyển!
                   </p>
                 )}
                 
-                <Link
-                  to="/checkout"
-                  id="drawer-checkout-btn"
-                  onClick={closeCart}
-                className="flex items-center justify-center gap-2 w-full py-3.5 bg-primary text-white font-bold rounded-none hover:bg-primary-700 transition-all shadow-soft hover:shadow-lg active:scale-95"
-                >
-                  Thanh toán ngay <ArrowRight size={16} strokeWidth={2.5} />
-                </Link>
+                <div className="bg-slate-50 rounded-lg p-4 border border-slate-100">
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold uppercase tracking-wider text-sm">Tổng cộng</span>
+                    <span className="text-xl font-black text-primary">{formatPrice(total)}</span>
+                  </div>
+                </div>
+                
+                {/* Nút Thanh toán ngay - Ẩn với admin */}
+                {!isAdmin && (
+                  <Link
+                    to="/checkout"
+                    id="drawer-checkout-btn"
+                    onClick={closeCart}
+                    className="flex justify-center w-full px-6 py-4 bg-primary text-white text-[13px] font-black uppercase tracking-wider rounded-sm hover:bg-primary-700 transition-colors shadow-lg shadow-primary/20 hover:scale-[1.01]"
+                  >
+                    Thanh toán ngay <ArrowRight size={16} strokeWidth={2.5} className="ml-2" />
+                  </Link>
+                )}
                 <Link
                   to="/cart"
                   onClick={closeCart}
-                  className="block text-center text-sm text-muted-foreground hover:text-primary transition-colors font-medium"
+                  className="block text-center text-[12px] font-bold text-slate-400 hover:text-primary transition-colors tracking-wide hover:underline underline-offset-4"
                 >
-                  Xem giỏ hàng chi tiết
+                  XEM GIỎ HÀNG CHI TIẾT
                 </Link>
               </div>
             )}

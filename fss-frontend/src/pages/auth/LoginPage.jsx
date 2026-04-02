@@ -1,15 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, Mail, Lock, AlertCircle, Sparkles } from 'lucide-react';
 import useAuthStore from '../../store/authStore';
+import { DEFAULT_AVATARS } from '../../store/authStore';
 
 export default function LoginPage() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ fss_identity: '', fss_secret: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const { login, authError, clearError } = useAuthStore();
   const navigate = useNavigate();
+
+  // Đảm bảo xóa trắng form ngay khi vào trang, kể cả khi trình duyệt cố điền
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFormData({ fss_identity: '', fss_secret: '' });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleChange = (e) => {
     clearError();
@@ -21,21 +30,14 @@ export default function LoginPage() {
     setLoading(true);
     // Giả lập delay API call
     await new Promise((r) => setTimeout(r, 800));
-    const result = login(formData.email, formData.password);
+    const result = login(formData.fss_identity, formData.fss_secret);
     setLoading(false);
     if (result.success) {
       navigate(result.role === 'admin' ? '/admin' : '/');
     }
   };
 
-  const fillDemo = (role) => {
-    clearError();
-    if (role === 'admin') {
-      setFormData({ email: 'admin@fss.vn', password: 'admin123' });
-    } else {
-      setFormData({ email: 'dat@example.com', password: '123456' });
-    }
-  };
+
 
   return (
     <div className="min-h-screen flex relative bg-white">
@@ -94,6 +96,12 @@ export default function LoginPage() {
           </div>
 
           <form id="login-form" onSubmit={handleSubmit} className="space-y-10">
+            {/* Decoy inputs to trap browser auto-fill */}
+            <div style={{ position: 'absolute', opacity: 0, height: 0, overflow: 'hidden', zIndex: -1 }}>
+              <input type="text" name="email" tabIndex="-1" />
+              <input type="password" name="password" tabIndex="-1" />
+            </div>
+
             {/* Email */}
             <div className="group">
               <label
@@ -103,15 +111,15 @@ export default function LoginPage() {
                 EMAIL
               </label>
               <input
-                id="login-email"
-                type="email"
-                name="email"
+                id="fss_identity"
+                type="text"
+                name="fss_identity"
                 required
-                autoComplete="email"
+                autoComplete="new-password"
                 placeholder="Nhập email của bạn"
-                value={formData.email}
+                value={formData.fss_identity}
                 onChange={handleChange}
-                className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
+                className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-sm"
               />
             </div>
 
@@ -128,20 +136,20 @@ export default function LoginPage() {
               </div>
               <div className="relative">
                 <input
-                  id="login-password"
+                  id="fss_secret"
                   type={showPassword ? 'text' : 'password'}
-                  name="password"
+                  name="fss_secret"
                   required
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                   placeholder="Nhập mật khẩu của bạn"
-                  value={formData.password}
+                  value={formData.fss_secret}
                   onChange={handleChange}
-                  className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-none"
+                  className="w-full border-b-2 border-slate-100 bg-transparent pt-3 pb-4 pr-16 text-[15px] font-medium focus:outline-none focus:border-primary transition-all placeholder:text-slate-200 rounded-sm"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 text-slate-300 hover:text-primary transition-colors"
+                  className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-primary transition-colors z-10"
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -158,7 +166,7 @@ export default function LoginPage() {
                 id="login-submit-btn"
                 type="submit"
                 disabled={loading}
-                className="flex-[1.2] py-4.5 bg-primary text-white text-[11px] font-black uppercase tracking-[0.2em] rounded-none hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3"
+                className="flex-[1.2] py-4.5 bg-primary text-white text-[11px] font-black uppercase tracking-[0.2em] rounded-sm hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3"
               >
                 {loading ? (
                   <><span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> ĐANG XỬ LÝ...</>
@@ -167,7 +175,7 @@ export default function LoginPage() {
 
               <Link
                 to="/register"
-                className="flex-1 py-4.5 border border-primary/20 text-primary text-[11px] font-black uppercase tracking-[0.2em] rounded-none hover:border-primary transition-all flex items-center justify-center"
+                className="flex-1 py-4.5 border border-primary/20 text-primary text-[11px] font-black uppercase tracking-[0.2em] rounded-sm hover:border-primary transition-all flex items-center justify-center"
               >
                 ĐĂNG KÝ
               </Link>

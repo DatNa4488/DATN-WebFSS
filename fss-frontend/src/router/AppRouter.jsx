@@ -6,6 +6,7 @@ import useAuthStore from '../store/authStore';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import AdminLayout from '../components/layout/AdminLayout';
+import ScrollToTop from '../components/layout/ScrollToTop';
 
 // Auth
 import LoginPage from '../pages/auth/LoginPage';
@@ -61,6 +62,7 @@ function CustomerLayout() {
 export default function AppRouter() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* Auth routes (no header/footer) */}
         <Route path="/login" element={<LoginPage />} />

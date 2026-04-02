@@ -59,7 +59,7 @@ export default function Header() {
   const handleLogout = () => {
     logout();
     setUserMenuOpen(false);
-    navigate('/');
+    navigate('/login');
   };
 
   return (
@@ -135,11 +135,12 @@ export default function Header() {
             </form>
 
             <div className="flex items-center gap-2">
-              {/* Cart */}
+              {/* Cart - chỉ hiện cho customer */}
+              {(!isAuthenticated || user?.role !== 'admin') && (
               <motion.button
                 whileTap={{ scale: 0.92 }}
                 onClick={openCart}
-                className="relative p-2 rounded-xl text-tertiary hover:text-primary hover:bg-[#F1F5F9] transition-colors"
+                className="relative flex items-center justify-center p-2 rounded-xl text-tertiary hover:text-primary hover:bg-[#F1F5F9] transition-colors"
                 title="Giỏ hàng"
               >
                 <ShoppingBag size={22} strokeWidth={1.5} />
@@ -154,6 +155,7 @@ export default function Header() {
                   </motion.span>
                 )}
               </motion.button>
+              )}
 
               {/* User Account */}
               <div className="relative" ref={userMenuRef}>
@@ -161,16 +163,16 @@ export default function Header() {
                   <motion.button
                     whileTap={{ scale: 0.92 }}
                     onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="p-2 rounded-full text-[#374151] hover:text-primary hover:bg-slate-100 transition-colors"
+                    className="relative flex items-center justify-center p-2 rounded-xl text-tertiary hover:text-primary hover:bg-[#F1F5F9] transition-colors"
                     title="Tài khoản"
                   >
                     <User size={22} strokeWidth={1.5} />
                   </motion.button>
                 ) : (
-                  <Link to="/login" title="Đăng nhập">
+                  <Link to="/login" title="Đăng nhập" className="flex items-center justify-center">
                     <motion.button
                       whileTap={{ scale: 0.92 }}
-                      className="p-2 rounded-full text-[#374151] hover:text-primary hover:bg-slate-100 transition-colors"
+                      className="relative flex items-center justify-center p-2 rounded-xl text-tertiary hover:text-primary hover:bg-[#F1F5F9] transition-colors"
                     >
                       <User size={22} strokeWidth={1.5} />
                     </motion.button>
@@ -184,32 +186,64 @@ export default function Header() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 15, scale: 0.95 }}
                       transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-                      className="absolute right-0 top-full mt-3 w-80 bg-white rounded-3xl shadow-2xl shadow-primary/10 border border-primary/5 py-2 z-50 overflow-hidden"
+                      className="absolute right-0 top-full mt-3 w-80 bg-white shadow-2xl shadow-primary/10 border border-slate-200 py-0 z-50 overflow-hidden rounded-md"
                     >
-                      <div className="px-6 py-4 border-b border-slate-50 bg-slate-50/30">
-                        <p className="font-bold text-sm text-foreground">{user.name}</p>
-                        <p className="text-[11px] text-muted-foreground font-medium">{user.email}</p>
+                      {/* Header section với gradient */}
+                      <div className="px-6 py-5 bg-gradient-to-r from-primary/5 to-primary/10 border-b border-slate-100">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="relative w-10 h-10 shrink-0">
+                            <img
+                              src={user.avatar}
+                              alt={user.name}
+                              className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.nextSibling.style.display = 'flex';
+                              }}
+                            />
+                            <span
+                              className="w-10 h-10 rounded-full bg-primary text-white text-sm font-bold absolute inset-0 items-center justify-center hidden"
+                            >
+                              {user.name?.charAt(0).toUpperCase()}
+                            </span>
+                          </div>
+                          <div className="flex-1">
+                            <p className="font-bold text-sm text-foreground">{user.name}</p>
+                            <p className="text-[11px] text-muted-foreground font-medium leading-tight">{user.email}</p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="p-1.5">
+                      <div className="p-2">
                         {user.role === 'admin' ? (
-                          <Link to="/admin" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-[13px] font-semibold text-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all">
-                            <Settings size={17} /> Quản trị viên
-                          </Link>
+                          <motion.div
+                            whileHover={{ x: 4 }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                          >
+                            <Link to="/admin" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3.5 text-[13px] font-semibold text-foreground hover:bg-primary/10 hover:text-primary rounded-md transition-all">
+                              <Settings size={18} className="text-primary" /> Quản trị viên
+                            </Link>
+                          </motion.div>
                         ) : (
                           <>
-                            <Link to="/profile" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-[13px] font-semibold text-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all">
-                              <User size={17} /> Hồ sơ cá nhân
-                            </Link>
-                            <Link to="/orders" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-[13px] font-semibold text-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all">
-                              <Package size={17} /> Đơn hàng của tôi
-                            </Link>
+                            <motion.div
+                              whileHover={{ x: 4 }}
+                              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                            >
+                              <Link to="/profile" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3.5 text-[13px] font-semibold text-foreground hover:bg-primary/10 hover:text-primary rounded-md transition-all">
+                                <User size={18} className="text-primary" /> Hồ sơ cá nhân
+                              </Link>
+                            </motion.div>
                           </>
                         )}
-                        <div className="mt-1 pt-1 border-t border-slate-50">
-                          <button onClick={handleLogout} className="flex items-center gap-3 w-full px-4 py-3 text-[13px] font-semibold text-rose-500 hover:bg-rose-50 rounded-xl transition-all">
-                            <LogOut size={17} /> Đăng xuất
+                        <div className="my-2 border-t border-slate-100"></div>
+                        <motion.div
+                          whileHover={{ x: 4 }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                        >
+                          <button onClick={handleLogout} className="flex items-center gap-3 w-full px-4 py-3.5 text-[13px] font-semibold text-rose-600 hover:bg-rose-50 hover:text-rose-700 rounded-md transition-all">
+                            <LogOut size={18} className="text-rose-600" /> Đăng xuất
                           </button>
-                        </div>
+                        </motion.div>
                       </div>
                     </motion.div>
                   )}

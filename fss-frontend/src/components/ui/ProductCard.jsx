@@ -4,11 +4,14 @@ import { ShoppingBag, Star, Heart } from 'lucide-react';
 import { useState } from 'react';
 import { formatPrice } from '../../data/mockData';
 import useCartStore from '../../store/cartStore';
+import useAuthStore from '../../store/authStore';
 
 export default function ProductCard({ product }) {
   const [liked, setLiked] = useState(false);
   const [imgIdx, setImgIdx] = useState(0);
   const { addItem, openCart } = useCartStore();
+  const { user } = useAuthStore();
+  const isAdmin = user?.role === 'admin';
 
   const handleQuickAdd = (e) => {
     e.preventDefault();
@@ -22,7 +25,7 @@ export default function ProductCard({ product }) {
 
   return (
     <motion.div
-      className="group h-full bg-white rounded-none border-2 border-border overflow-hidden shadow-soft hover:shadow-elevation transition-all duration-300"
+      className="group h-full bg-white rounded-md shadow-soft hover:shadow-elevation transition-all duration-300"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -6 }}
@@ -30,7 +33,7 @@ export default function ProductCard({ product }) {
       {/* Image Section with Enhanced Hover */}
       <Link
         to={`/products/${product.id}`}
-        className="block relative overflow-hidden aspect-[3/4] bg-surface-secondary"
+        className="block relative overflow-hidden rounded-sm aspect-[3/4] bg-surface-secondary"
       >
         <img
           src={product.images[imgIdx]}
@@ -66,7 +69,7 @@ export default function ProductCard({ product }) {
           )}
         </div>
 
-        {/* Quick Action Buttons - Enhanced */}
+          {/* Quick Action Buttons - Enhanced */}
         <div className="absolute top-3 right-3 flex flex-col gap-2 z-20 translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-y-0">
           <motion.button
             whileTap={{ scale: 0.9 }}
@@ -79,6 +82,7 @@ export default function ProductCard({ product }) {
           >
             <Heart size={18} className={`transition-all ${liked ? 'fill-current' : ''}`} />
           </motion.button>
+          {!isAdmin && (
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={handleQuickAdd}
@@ -87,55 +91,37 @@ export default function ProductCard({ product }) {
           >
             <ShoppingBag size={18} strokeWidth={2} />
           </motion.button>
+          )}
         </div>
       </Link>
 
       {/* Info Section - Premium Styling */}
-      <div className="p-5 lg:p-6 flex flex-col h-auto justify-between min-h-[240px]">
+      <div className="p-2 lg:p-3 flex flex-col h-auto justify-between min-h-[150px]">
         {/* Category & Rating */}
-        <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="flex items-start justify-between gap-2 mb-0.5">
           <span className="text-xs font-bold text-primary-600 uppercase tracking-wide opacity-70">
             {product.category}
           </span>
-          <div className="flex items-center gap-1.5 bg-primary-50 px-2.5 py-1.5 rounded-full">
-            <Star size={12} className="fill-primary text-primary" />
+          <div className="flex items-center gap-1 bg-primary-50 px-2 py-1 rounded-full">
+            <Star size={11} className="fill-primary text-primary" />
             <span className="text-xs font-bold text-primary">{product.rating}</span>
           </div>
         </div>
 
         {/* Product Name */}
         <Link to={`/products/${product.id}`} className="block">
-          <h3 className="font-bold text-xs text-foreground leading-snug font-display hover:text-primary transition-colors line-clamp-2 uppercase tracking-tight">
+          <h3 className="font-bold text-xs text-foreground leading-tight font-display hover:text-primary transition-colors line-clamp-2 uppercase tracking-tight">
             {product.name}
           </h3>
         </Link>
 
         {/* Description */}
-        <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-3">
+        <p className="text-xs text-muted-foreground leading-tight line-clamp-2 my-0.5">
           Chất lượng cao cấp, thiết kế tối giản
         </p>
 
-        {/* Color Dots */}
-        {product.colors && product.colors.length > 0 && (
-          <div className="flex items-center gap-1.5 mb-3">
-            {product.colors.slice(0, 4).map((color, i) => (
-              <div
-                key={i}
-                className="w-4 h-4 rounded-full border-2 border-white ring-1 ring-border shadow-sm cursor-pointer hover:scale-110 transition-transform"
-                style={{ backgroundColor: color }}
-                title={product.colorNames?.[i] || `Color ${i + 1}`}
-              />
-            ))}
-            {product.colors.length > 4 && (
-              <div className="text-xs font-semibold text-muted-foreground px-1">
-                +{product.colors.length - 4}
-              </div>
-            )}
-          </div>
-        )}
-
         {/* Price */}
-        <div className="flex items-baseline gap-2 pt-auto mt-auto">
+        <div className="flex items-baseline gap-2 mt-auto">
           <span className="font-black text-lg text-primary tracking-tight">
             {formatPrice(product.price)}
           </span>

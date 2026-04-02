@@ -110,7 +110,7 @@ export default function BlogPage() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-3 rounded-none text-[12px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeCategory === cat
+                  className={`px-6 py-3 rounded-sm text-[12px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeCategory === cat
                       ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105'
                       : 'bg-slate-50 text-muted-foreground hover:bg-slate-100'
                     }`}
@@ -125,7 +125,7 @@ export default function BlogPage() {
                 placeholder="Nhập từ khóa tìm kiếm..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-6 py-4 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
+                className="w-full px-6 py-4 bg-slate-50 border-none rounded-sm text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
               />
             </div>
           </div>
@@ -146,21 +146,21 @@ export default function BlogPage() {
                   transition={{ delay: index * 0.1 }}
                   className="group flex flex-col"
                 >
-                  <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 shadow-soft group-hover:shadow-elevation transition-all duration-500">
+                  <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 bg-slate-100 shadow-soft group-hover:shadow-elevation transition-all duration-500">
                     <img
                       src={post.image}
                       alt={post.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1.5 bg-white/90 backdrop-blur-md text-headline text-[9px] font-black uppercase tracking-widest rounded-none shadow-sm">
+                      <span className="px-3 py-1.5 bg-white/90 backdrop-blur-md text-headline text-[9px] font-black uppercase tracking-widest rounded-sm shadow-sm">
                         {post.category}
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
                     <span>{post.date}</span>
-                    <span className="w-1 h-1 bg-primary rounded-none" />
+                    <span className="w-1 h-1 bg-primary rounded-sm" />
                     <span>{post.readingTime} đọc</span>
                   </div>
                   <h3 className="text-xl lg:text-2xl font-bold font-display text-headline mb-4 group-hover:text-primary transition-colors line-clamp-2 leading-tight">
@@ -176,13 +176,13 @@ export default function BlogPage() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-slate-50 rounded-none border border-dashed border-slate-200">
+            <div className="text-center py-20 bg-slate-50 rounded-sm border border-dashed border-slate-200">
               <Search size={48} className="mx-auto text-slate-300 mb-6" />
               <h3 className="text-2xl font-bold text-headline mb-2">Không tìm thấy bài viết</h3>
               <p className="text-muted-foreground">Thử tìm kiếm với từ khóa khác nhé!</p>
               <button
                 onClick={() => { setSearchQuery(''); setActiveCategory('Tất cả'); }}
-                className="mt-8 px-8 py-3 bg-white border border-slate-200 rounded-none font-bold text-sm hover:bg-slate-50 transition-all"
+                className="mt-8 px-8 py-3 bg-white border border-slate-200 rounded-sm font-bold text-sm hover:bg-slate-50 transition-all"
               >
                 Xóa tất cả bộ lọc
               </button>

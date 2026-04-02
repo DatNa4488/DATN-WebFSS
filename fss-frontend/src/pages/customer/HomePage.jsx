@@ -81,7 +81,7 @@ export default function HomePage() {
               <motion.div className="mt-10">
                 <Link
                   to="/products"
-                  className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-white font-bold rounded-none shadow-soft hover:shadow-elevation hover:bg-primary-700 transition-all active:scale-95"
+                  className="inline-flex items-center gap-3 px-10 py-4 bg-primary text-white font-bold rounded-sm shadow-soft hover:shadow-elevation hover:bg-primary-700 transition-all active:scale-95"
                 >
                   Khám phá ngay <ArrowRight size={20} strokeWidth={2} />
                 </Link>
@@ -138,7 +138,7 @@ export default function HomePage() {
       {/* ===== CATEGORIES SECTION ===== */}
       <section className="py-24 lg:py-32 bg-gradient-to-b from-white via-surface-secondary to-white">
         <div className={containerClass}>
-          <div className="card-premium p-6 sm:p-8 mb-10 rounded-none">
+          <div className="card-premium p-6 sm:p-8 mb-10 rounded-sm">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold font-display text-foreground mb-1">Sản phẩm nổi bật</h2>
               <p className="text-sm text-muted-foreground">Bộ sưu tập được chọn lọc kỹ càng cho bạn</p>
@@ -193,9 +193,9 @@ export default function HomePage() {
                 <motion.div
                   key={idx}
                   whileHover={{ y: -4 }}
-                  className="card-elevated p-8 rounded-none text-center"
+                  className="card-elevated p-8 rounded-sm text-center"
                 >
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-none bg-primary/10 text-primary mb-6">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-sm bg-primary/10 text-primary mb-6">
                     <Icon size={28} strokeWidth={2} />
                   </div>
                   <h3 className="font-bold text-lg text-foreground mb-3">{feature.title}</h3>

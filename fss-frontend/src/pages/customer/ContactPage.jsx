@@ -87,8 +87,8 @@ export default function ContactPage() {
               <div>
                 <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-6">Thông tin liên hệ</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-4 rounded-none border border-slate-100 bg-surface-secondary p-5 shadow-sm">
-                    <div className="w-12 h-12 rounded-none bg-accent-soft flex items-center justify-center text-primary shrink-0">
+                  <div className="flex items-center gap-4 rounded-sm border border-slate-100 bg-surface-secondary p-5 shadow-sm">
+                    <div className="w-12 h-12 rounded-sm bg-accent-soft flex items-center justify-center text-primary shrink-0">
                       <MapPin size={22} />
                     </div>
                     <div>
@@ -97,8 +97,8 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4 rounded-none border border-slate-100 bg-surface-secondary p-5 shadow-sm">
-                    <div className="w-12 h-12 rounded-none bg-accent-soft flex items-center justify-center text-primary shrink-0">
+                  <div className="flex items-center gap-4 rounded-sm border border-slate-100 bg-surface-secondary p-5 shadow-sm">
+                    <div className="w-12 h-12 rounded-sm bg-accent-soft flex items-center justify-center text-primary shrink-0">
                       <Phone size={22} />
                     </div>
                     <div>
@@ -108,8 +108,8 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4 rounded-none border border-slate-100 bg-surface-secondary p-5 shadow-sm sm:col-span-2">
-                    <div className="w-12 h-12 rounded-none bg-accent-soft flex items-center justify-center text-primary shrink-0">
+                  <div className="flex items-center gap-4 rounded-sm border border-slate-100 bg-surface-secondary p-5 shadow-sm sm:col-span-2">
+                    <div className="w-12 h-12 rounded-sm bg-accent-soft flex items-center justify-center text-primary shrink-0">
                       <Mail size={22} />
                     </div>
                     <div>
@@ -123,13 +123,13 @@ export default function ContactPage() {
               <div>
                 <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-10">Theo dõi chúng tôi</h3>
                 <div className="flex items-center gap-4">
-                  <a href="#" className="w-12 h-12 rounded-none border border-slate-100 flex items-center justify-center text-muted-foreground hover:bg-primary hover:border-primary hover:text-white transition-all shadow-sm">
+                  <a href="#" className="w-12 h-12 rounded-sm border border-slate-100 flex items-center justify-center text-muted-foreground hover:bg-primary hover:border-primary hover:text-white transition-all shadow-sm">
                     <FacebookIcon size={20} />
                   </a>
-                  <a href="#" className="w-12 h-12 rounded-none border border-slate-100 flex items-center justify-center text-muted-foreground hover:bg-primary hover:border-primary hover:text-white transition-all shadow-sm">
+                  <a href="#" className="w-12 h-12 rounded-sm border border-slate-100 flex items-center justify-center text-muted-foreground hover:bg-primary hover:border-primary hover:text-white transition-all shadow-sm">
                     <InstagramIcon size={20} />
                   </a>
-                  <a href="#" className="w-12 h-12 rounded-none border border-slate-100 flex items-center justify-center text-muted-foreground hover:bg-primary hover:border-primary hover:text-white transition-all shadow-sm">
+                  <a href="#" className="w-12 h-12 rounded-sm border border-slate-100 flex items-center justify-center text-muted-foreground hover:bg-primary hover:border-primary hover:text-white transition-all shadow-sm">
                     <Share size={20} />
                   </a>
                 </div>
@@ -141,7 +141,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white rounded-none p-8 lg:p-12 shadow-2xl border border-slate-50 ring-1 ring-black/5"
+              className="bg-white rounded-sm p-8 lg:p-12 shadow-2xl border border-slate-50 ring-1 ring-black/5"
             >
               {submitted ? (
                 <div className="text-center py-10">
@@ -152,7 +152,7 @@ export default function ContactPage() {
                   <p className="text-muted-foreground mb-8">Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất có thể.</p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="px-8 py-3 bg-primary text-white font-bold rounded-none hover:bg-secondary transition-all"
+                    className="px-8 py-3 bg-primary text-white font-bold rounded-sm hover:bg-secondary transition-all"
                   >
                     Gửi tin nhắn khác
                   </button>
@@ -168,7 +168,7 @@ export default function ContactPage() {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-6 py-4 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
+                        className="w-full px-6 py-4 bg-slate-50 border-none rounded-sm text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
                         placeholder="Nhập họ và tên của bạn"
                       />
                     </div>
@@ -180,7 +180,7 @@ export default function ContactPage() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-6 py-4 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
+                        className="w-full px-6 py-4 bg-slate-50 border-none rounded-sm text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
                         placeholder="Nhập email của bạn"
                       />
                     </div>
@@ -193,7 +193,7 @@ export default function ContactPage() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-6 py-4 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
+                      className="w-full px-6 py-4 bg-slate-50 border-none rounded-sm text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none"
                       placeholder="Nhập chủ đề của bạn"
                     />
                   </div>
@@ -205,13 +205,13 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={handleChange}
                       rows={6}
-                      className="w-full px-6 py-4 bg-slate-50 border-none rounded-none text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none resize-none"
+                      className="w-full px-6 py-4 bg-slate-50 border-none rounded-sm text-sm font-medium focus:ring-2 ring-primary/20 transition-all outline-none resize-none"
                       placeholder="Nhập nội dung tin nhắn của bạn"
                     />
                   </div>
                   <button
                     disabled={isSubmitting}
-                    className="w-full py-5 bg-primary text-white font-black text-[13px] uppercase tracking-widest rounded-none hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full py-5 bg-primary text-white font-black text-[13px] uppercase tracking-widest rounded-sm hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -229,9 +229,9 @@ export default function ContactPage() {
       {/* ===== MAP SECTION ===== */}
       <section className="py-6 lg:py-10">
         <div className={containerClass}>
-          <div className="rounded-none border border-slate-100 bg-white p-4 sm:p-6 shadow-sm">
+          <div className="rounded-sm border border-slate-100 bg-white p-4 sm:p-6 shadow-sm">
             <h3 className="text-xl font-bold font-display text-foreground mb-4 uppercase tracking-wider text-sm">XEM BẢN ĐỒ</h3>
-            <div className="relative w-full overflow-hidden rounded-none border border-slate-100">
+            <div className="relative w-full overflow-hidden rounded-sm border border-slate-100">
               <iframe
                 title="Google Map - Trường Đại học Thủy Lợi"
                 src={mapSrc}
@@ -245,7 +245,7 @@ export default function ContactPage() {
                 href={mapLink}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-surface-secondary text-primary font-bold rounded-none border border-border hover:bg-accent-soft transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-surface-secondary text-primary font-bold rounded-sm border border-border hover:bg-accent-soft transition-colors"
               >
                 Mở trong Google Maps <ChevronDown className="rotate-[-90deg]" size={16} />
               </a>
@@ -267,14 +267,14 @@ export default function ContactPage() {
               {contactInfo.faq.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-white !rounded-none border border-slate-100 shadow-none transition-all"
+                  className="bg-white !rounded-sm border border-slate-100 shadow-none transition-all"
                 >
                   <button
                     onClick={() => setActiveFaq(activeFaq === index ? null : index)}
                     className="w-full px-10 py-7 flex items-center justify-between text-left group"
                   >
                     <span className="font-bold italic text-foreground group-hover:text-primary transition-colors">{item.q}</span>
-                    <div className={`p-2 rounded-none bg-slate-50 transition-transform duration-300 ${activeFaq === index ? 'rotate-180 bg-primary/10 text-primary' : ''}`}>
+                    <div className={`p-2 rounded-sm bg-slate-50 transition-transform duration-300 ${activeFaq === index ? 'rotate-180 bg-primary/10 text-primary' : ''}`}>
                       <ChevronDown size={18} />
                     </div>
                   </button>
@@ -318,7 +318,7 @@ export default function ContactPage() {
                     <input
                       type="email"
                       placeholder="NHẬP EMAIL CỦA BẠN"
-                      className="w-full bg-transparent px-0 py-6 text-center text-sm lg:text-base font-black text-white outline-none !rounded-none placeholder:text-white/40 tracking-[0.3em]"
+                      className="w-full bg-transparent px-0 py-6 text-center text-sm lg:text-base font-black text-white outline-none !rounded-sm placeholder:text-white/40 tracking-[0.3em]"
                     />
                   </div>
 
